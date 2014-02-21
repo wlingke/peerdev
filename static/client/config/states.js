@@ -2,16 +2,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('index', {
             url: '/',
-            template: 'This is the index'
+            template: '<a href="/api/facebook">facebook</a>'
         })
-        .state('other', {
-            url: '/other',
-            template: 'this is a page with route {{ route }}',
-            controller: function($location, $scope){
-                $scope.route = $location.path();
-            }
-        });
+        .state('create_user', {
+            url: '/create-user',
+            templateUrl: '/static/client/users/partials/create-user.html',
+            controller: 'createUserController'
+        })
 
-    $urlRouterProvider.otherwise("/other")
+
+    $urlRouterProvider.otherwise("/index")
 
 });
