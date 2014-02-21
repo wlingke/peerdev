@@ -8,17 +8,16 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     passport = require('passport'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    config = require('./app/config/config')
 
 /**
  * Sets nod environment if not already set
  */
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-console.log(process.env.NODE_ENV)
 
-
-var app = express();
-var db = mongoose.connect('mongodb://localhost/test');
+var app = express(config.db);
+var db = mongoose.connect('mongodb://localhost/peerdev');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
