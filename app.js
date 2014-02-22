@@ -9,15 +9,14 @@ var express = require('express'),
     path = require('path'),
     passport = require('passport'),
     mongoose = require('mongoose'),
-    config = require('./app/config/config')
-
+    config = require('app/config/config');
 /**
  * Sets nod environment if not already set
  */
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var app = express(config.db);
-var db = mongoose.connect('mongodb://localhost/peerdev');
+var app = express();
+var db = mongoose.connect(config.db);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -42,12 +41,12 @@ if ('development' == app.get('env')) {
 /**
  * Models
  */
-require('./app/models/user');
+require('app/models/user');
 
 /**
  * Passport
  */
-require('./app/config/passport')(passport);
+require('app/config/passport')(passport);
 
 
 /**
