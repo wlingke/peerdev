@@ -5,6 +5,13 @@ html(ng-app='peerdev')
         link(rel='stylesheet', href='/static/css/cdn.css')
         link(rel='stylesheet', href='/static/css/vendor.css')
         link(rel='stylesheet', href='/static/css/main.css')
+        script(type='text/javascript').
+            (function () {
+                if (window.location.hash === "#_=_") {
+                    window.location.hash = "";
+                }
+            })()
+
     body(ng-controller='appController')
         .bodyWrapper
             .bodyContainer
