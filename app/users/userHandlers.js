@@ -4,6 +4,35 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     _ = require('lodash');
 
+var userAuth = function (req, res, next, user, authType) {
+    var prop;
+    if (authType === 'facebook') {
+        prop = 'facebook_id'
+    } else {
+        next('Incorrect authType')
+    }
+
+    var search = {};
+    search['providers.' + prop] = user.id;
+
+    User.findOne(search, 'userId data', function (err, profile) {
+        if (err) {next(err)}
+
+        if (profile) {
+            req.session.profile = profile;
+            res.redirect('/');
+        } else {
+            var cookie = {};
+            cookie[prop] = user.id;
+            cookie.name = user.displayName;
+
+            res.cookie('auth', cookie,{signed: true});
+            res.redirect('/create-account')
+        }
+    });
+
+};
+
 module.exports.create = function (req, res, next) {
     var cookie = req.signedCookies.auth;
     var newUser = {
@@ -31,29 +60,7 @@ module.exports.create = function (req, res, next) {
 module.exports.facebook_auth = function (passport) {
     return function (req, res, next) {
         passport.authenticate('facebook', function (err, user, info) {
-
-            User.findOne({'providers.facebook_id': user.id}, 'userId data', function (err, profile) {
-                if (err) {
-                    next(err)
-                }
-
-                if (profile) {
-                    req.session.profile = profile;
-                    res.redirect('/');
-                } else {
-                    res.cookie('auth',
-                        {
-                            facebook_id: user.id,
-                            name: user.displayName
-                        },
-                        {
-                            signed: true
-                        }
-                    );
-                    res.redirect('/create-account')
-                }
-            });
-
+            userAuth(req, res, next, user, 'facebook')
         })(req, res, next)
     };
 };
@@ -66,7 +73,7 @@ module.exports.currentUser = function (req, res, next) {
     }
 };
 
-module.exports.logout = function(req,res,next){
+module.exports.logout = function (req, res, next) {
     req.session.profile = null;
     res.send(204);
 }
