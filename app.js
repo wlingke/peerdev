@@ -9,7 +9,7 @@ var express = require('express'),
     path = require('path'),
     passport = require('passport'),
     mongoose = require('mongoose'),
-    config = require('./config/config');
+    config = require('./app/config/config');
 
 var app = express();
 var db = mongoose.connect(config.db);
@@ -32,21 +32,21 @@ app.use(passport.session());
 /**
  * Models
  */
-require('./models/user');
+require('./app/models/user');
 
 /**
  * Passport
  */
-require('./config/passport')(passport);
+require('./app/config/passport')(passport);
 
 
 /**
  * Static Files, API, and Routing
  */
-app.use('/static', express.static(path.join(__dirname, 'static')));
+app.use('/static', express.static('static'));
 app.use(app.router);
-require('./users/usersAPI')(app, passport);
-require('./general/routes')(app);
+require('./app/users/usersAPI')(app, passport);
+require('./app/general/routes')(app);
 
 // development only
 if ('development' === app.get('env')) {

@@ -6,7 +6,7 @@ var spawn = require('child_process').spawn;
 
 var args = [
     '--harmony',
-    'app/app.js'
+    'app.js'
 ];
 
 var opt = {
