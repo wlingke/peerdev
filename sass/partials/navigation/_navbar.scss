@@ -39,17 +39,20 @@
   border-left: 1px solid $border-color;
   background-color: lighten($grey,1%);
 
+  //offsets BS's native navbar-right shift for proper alignment
+  margin-right: 15px;
+
   > a {
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    line-height: $navbar-element-height + 10px !important;
+    padding-top: ($navbar-height - $navbar-element-height)/2 !important;
+    padding-bottom: ($navbar-height - $navbar-element-height)/2 !important;
+    line-height: $navbar-element-height  !important;
     display: table !important;
   }
 
   .avatar-nav {
     float: left;
-    height: $navbar-element-height + 6px;
-    width: $navbar-element-height + 6px;
+    height: $navbar-element-height;
+    width: $navbar-element-height;
   }
   .name {
     padding-left: 10px;

@@ -9,7 +9,8 @@ var express = require('express'),
     path = require('path'),
     passport = require('passport'),
     mongoose = require('mongoose'),
-    config = require('./app/config/config');
+    config = require('./app/config/config'),
+    Mongostore = require('connect-mongo')(express)
 
 var app = express();
 var db = mongoose.connect(config.db);
@@ -23,10 +24,19 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.cookieParser('peerdev022114'));
-app.use(express.session());
+app.use(express.cookieParser(config.cookieScret));
+app.use(express.session({
+    secret: config.cookieSecret,
+    store: new Mongostore({
+        mongoose_connection: db.connections[0]
+    })
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req,res,next){
+    res.locals.session = req.session;
+    next();
+})
 
 
 /**

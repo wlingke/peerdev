@@ -73,28 +73,29 @@ body {
   border-right: 1px solid #dddddd;
   border-left: 1px solid #dddddd;
   background-color: #f0f0f0;
+  margin-right: 15px;
 }
-/* line 42, ../../sass/partials/navigation/_navbar.scss */
+/* line 45, ../../sass/partials/navigation/_navbar.scss */
 .avatar-nav-container > a {
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-  line-height: 38px !important;
+  padding-top: 9px !important;
+  padding-bottom: 9px !important;
+  line-height: 32px !important;
   display: table !important;
 }
-/* line 49, ../../sass/partials/navigation/_navbar.scss */
+/* line 52, ../../sass/partials/navigation/_navbar.scss */
 .avatar-nav-container .avatar-nav {
   float: left;
-  height: 34px;
-  width: 34px;
+  height: 32px;
+  width: 32px;
 }
-/* line 54, ../../sass/partials/navigation/_navbar.scss */
+/* line 57, ../../sass/partials/navigation/_navbar.scss */
 .avatar-nav-container .name {
   padding-left: 10px;
   padding-right: 12px;
   float: right;
   position: relative;
 }
-/* line 60, ../../sass/partials/navigation/_navbar.scss */
+/* line 63, ../../sass/partials/navigation/_navbar.scss */
 .avatar-nav-container .name .name-crop {
   max-width: 200px;
   float: left;
@@ -102,7 +103,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 65, ../../sass/partials/navigation/_navbar.scss */
+/* line 68, ../../sass/partials/navigation/_navbar.scss */
 .avatar-nav-container .name .fa {
   position: absolute;
   margin-top: -7px;

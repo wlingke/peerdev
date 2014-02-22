@@ -1,6 +1,20 @@
 .navbar.navbar-fixed-top.navbar-white
     .container
-        span.navbar-brand Test
-        ul.nav.navbar-nav
-            li
-                a(ng-click='loginModal()') Sign Up or Log In
+        a.navbar-brand(href="/") Peer.dev()
+        ul.nav.navbar-nav.navbar-right
+            if session.profile
+                li.dropdown.avatar-nav-container
+                    a.dropdown-toggle
+                        img.avatar-nav(src='')
+                        div.name
+                            span.name-crop= session.profile.data.name
+                                i.fa.fa-caret-down
+                    ul.dropdown-menu.dropdown-menu-right
+                        li
+                            a(ui-sref='account') My Account
+                        li.divider
+                        li
+                            a(ng-click="logout()") Log Out
+            else
+                li
+                    button.btn.btn-primary.navbar-btn(type='button', ng-click='loginModal()') Sign Up or Log In
