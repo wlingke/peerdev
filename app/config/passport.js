@@ -1,8 +1,7 @@
 'use strict';
 
 var FacebookStrategy = require('passport-facebook').Strategy,
-    config = require('./config'),
-    User = require('app/controllers/users').model
+    config = require('./config');
 
 module.exports = function (passport) {
     passport.use(new FacebookStrategy({

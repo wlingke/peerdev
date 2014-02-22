@@ -42,4 +42,4 @@ UserSchema.pre('save', function (next) {
     next();
 });
 
-mongoose.model('User', UserSchema);
+var model = mongoose.model('User', UserSchema);

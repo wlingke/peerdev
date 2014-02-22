@@ -1,12 +1,13 @@
 'use strict';
 
-var users = require('../controllers/users');
+var userHandler = require('./userHandlers'),
+    model = require('mongoose').model('User')
 
 module.exports = function (app, passport) {
 
-    app.post('/api/users', users.create)
+    app.post('/api/users', userHandler.create)
     app.get('/api/users', function (req, res, next) {
-        users.model.find({}, function (err, users) {
+        model.find({}, function (err, users) {
             if (err) {
                 console.log(err)
                 next();
@@ -31,7 +32,5 @@ module.exports = function (app, passport) {
             );
             res.redirect('/create-user')
         })(req, res, next)
-
-
     });
 };

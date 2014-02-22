@@ -9,11 +9,7 @@ var express = require('express'),
     path = require('path'),
     passport = require('passport'),
     mongoose = require('mongoose'),
-    config = require('app/config/config');
-/**
- * Sets nod environment if not already set
- */
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+    config = require('./config/config');
 
 var app = express();
 var db = mongoose.connect(config.db);
@@ -32,39 +28,30 @@ app.use(express.session());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// development only
-if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
-}
-
 
 /**
  * Models
  */
-require('app/models/user');
+require('./models/user');
 
 /**
  * Passport
  */
-require('app/config/passport')(passport);
+require('./config/passport')(passport);
 
 
 /**
- * Routing
+ * Static Files, API, and Routing
  */
-
 app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use(app.router);
-require('./app/api/users')(app, passport);
+require('./users/usersAPI')(app, passport);
+require('./general/routes')(app);
 
-app.get('/static/*', function (req, res, next) {
-    res.writeHead(404);
-    res.end();
-});
-
-app.get('/*', function(req,res,next){
-    res.render('index');
-});
+// development only
+if ('development' === app.get('env')) {
+    app.use(express.errorHandler());
+}
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));

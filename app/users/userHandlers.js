@@ -4,8 +4,6 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     _ = require('lodash');
 
-
-module.exports.model = User;
 module.exports.create = function (req, res, next) {
     var cookie = req.signedCookies.auth;
     var newUser = {
