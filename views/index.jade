@@ -5,16 +5,12 @@ html(ng-app='peerdev')
         link(rel='stylesheet', href='/static/css/cdn.css')
         link(rel='stylesheet', href='/static/css/vendor.css')
         link(rel='stylesheet', href='/static/css/main.css')
-    body
+    body(ng-controller='appController')
         .bodyWrapper
             .bodyContainer
-
-                include nav
-
-                .alert.alert-danger
-                    i(class='fa fa-inbox fa-fw')
-                    | Hello World
-                div(ui-view)
+                .container
+                    include nav
+                    div(ui-view)
 
 
         footer

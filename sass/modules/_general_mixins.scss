@@ -49,3 +49,57 @@ $direction: null "-left" "-right" "-top" "-bottom";
     margin#{$dir}: 0 !important;
   }
 }
+
+@mixin button-variant($name, $color, $background, $border:null) {
+  .btn-#{$name} {
+    @if $border == null {
+      $border: darken($background, 5%);
+    }
+    color: $color;
+    background-color: $background;
+    border-color: $border;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      color: $color;
+      background-color: darken($background, 8%);
+      border-color: darken($border, 12%);
+    }
+    .open & {
+      &.dropdown-toggle {
+        color: $color;
+        background-color: darken($background, 8%);
+        border-color: darken($border, 12%);
+      }
+    }
+    &:active,
+    &.active {
+      background-image: none;
+    }
+    .open & {
+      &.dropdown-toggle {
+        background-image: none;
+      }
+    }
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+      &,
+      &:hover,
+      &:focus,
+      &:active,
+      &.active {
+        background-color: $background;
+        border-color: $border;
+      }
+    }
+
+    .badge {
+      color: $background;
+      background-color: $color;
+    }
+  }
+
+}

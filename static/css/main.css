@@ -322,3 +322,196 @@ a:hover, a:focus {
 .capitalize {
   text-transform: capitalize;
 }
+
+/* line 1, ../../sass/partials/general/_callout.scss */
+.callout-box {
+  margin: 10px 0;
+  padding: 10px;
+  border-left: 5px solid #dddddd;
+}
+/* line 6, ../../sass/partials/general/_callout.scss */
+.callout-box h4 {
+  margin-top: 0;
+}
+/* line 10, ../../sass/partials/general/_callout.scss */
+.callout-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* line 34, ../../sass/modules/_general_mixins.scss */
+.callout-box-default {
+  background-color: #e9e9e9;
+  border-color: gainsboro;
+}
+
+/* line 34, ../../sass/modules/_general_mixins.scss */
+.callout-box-primary {
+  background-color: #c3daee;
+  border-color: #b0cee9;
+}
+
+/* line 34, ../../sass/modules/_general_mixins.scss */
+.callout-box-danger {
+  background-color: #f6d8d7;
+  border-color: #f2c4c2;
+}
+
+/* line 34, ../../sass/modules/_general_mixins.scss */
+.callout-box-warning {
+  background-color: #fdf4e7;
+  border-color: #fbe9cf;
+}
+
+/* line 34, ../../sass/modules/_general_mixins.scss */
+.callout-box-success {
+  background-color: #eaf6ea;
+  border-color: #d8eed8;
+}
+
+/* line 54, ../../sass/modules/_general_mixins.scss */
+.btn-linkedin {
+  color: white;
+  background-color: #4875b4;
+  border-color: #4169a2;
+}
+/* line 65, ../../sass/modules/_general_mixins.scss */
+.btn-linkedin:hover, .btn-linkedin:focus, .btn-linkedin:active, .btn-linkedin.active {
+  color: white;
+  background-color: #3c6297;
+  border-color: #2f4d76;
+}
+/* line 71, ../../sass/modules/_general_mixins.scss */
+.open .btn-linkedin.dropdown-toggle {
+  color: white;
+  background-color: #3c6297;
+  border-color: #2f4d76;
+}
+/* line 78, ../../sass/modules/_general_mixins.scss */
+.btn-linkedin:active, .btn-linkedin.active {
+  background-image: none;
+}
+/* line 82, ../../sass/modules/_general_mixins.scss */
+.open .btn-linkedin.dropdown-toggle {
+  background-image: none;
+}
+/* line 93, ../../sass/modules/_general_mixins.scss */
+.btn-linkedin.disabled, .btn-linkedin.disabled:hover, .btn-linkedin.disabled:focus, .btn-linkedin.disabled:active, .btn-linkedin.disabled.active, .btn-linkedin[disabled], .btn-linkedin[disabled]:hover, .btn-linkedin[disabled]:focus, .btn-linkedin[disabled]:active, .btn-linkedin[disabled].active, fieldset[disabled] .btn-linkedin, fieldset[disabled] .btn-linkedin:hover, fieldset[disabled] .btn-linkedin:focus, fieldset[disabled] .btn-linkedin:active, fieldset[disabled] .btn-linkedin.active {
+  background-color: #4875b4;
+  border-color: #4169a2;
+}
+/* line 99, ../../sass/modules/_general_mixins.scss */
+.btn-linkedin .badge {
+  color: #4875b4;
+  background-color: white;
+}
+
+/* line 54, ../../sass/modules/_general_mixins.scss */
+.btn-facebook {
+  color: white;
+  background-color: #3b5998;
+  border-color: #344e86;
+}
+/* line 65, ../../sass/modules/_general_mixins.scss */
+.btn-facebook:hover, .btn-facebook:focus, .btn-facebook:active, .btn-facebook.active {
+  color: white;
+  background-color: #30487b;
+  border-color: #23345a;
+}
+/* line 71, ../../sass/modules/_general_mixins.scss */
+.open .btn-facebook.dropdown-toggle {
+  color: white;
+  background-color: #30487b;
+  border-color: #23345a;
+}
+/* line 78, ../../sass/modules/_general_mixins.scss */
+.btn-facebook:active, .btn-facebook.active {
+  background-image: none;
+}
+/* line 82, ../../sass/modules/_general_mixins.scss */
+.open .btn-facebook.dropdown-toggle {
+  background-image: none;
+}
+/* line 93, ../../sass/modules/_general_mixins.scss */
+.btn-facebook.disabled, .btn-facebook.disabled:hover, .btn-facebook.disabled:focus, .btn-facebook.disabled:active, .btn-facebook.disabled.active, .btn-facebook[disabled], .btn-facebook[disabled]:hover, .btn-facebook[disabled]:focus, .btn-facebook[disabled]:active, .btn-facebook[disabled].active, fieldset[disabled] .btn-facebook, fieldset[disabled] .btn-facebook:hover, fieldset[disabled] .btn-facebook:focus, fieldset[disabled] .btn-facebook:active, fieldset[disabled] .btn-facebook.active {
+  background-color: #3b5998;
+  border-color: #344e86;
+}
+/* line 99, ../../sass/modules/_general_mixins.scss */
+.btn-facebook .badge {
+  color: #3b5998;
+  background-color: white;
+}
+
+/* line 54, ../../sass/modules/_general_mixins.scss */
+.btn-google {
+  color: white;
+  background-color: #c63d2d;
+  border-color: #b13728;
+}
+/* line 65, ../../sass/modules/_general_mixins.scss */
+.btn-google:hover, .btn-google:focus, .btn-google:active, .btn-google.active {
+  color: white;
+  background-color: #a53325;
+  border-color: #7f271d;
+}
+/* line 71, ../../sass/modules/_general_mixins.scss */
+.open .btn-google.dropdown-toggle {
+  color: white;
+  background-color: #a53325;
+  border-color: #7f271d;
+}
+/* line 78, ../../sass/modules/_general_mixins.scss */
+.btn-google:active, .btn-google.active {
+  background-image: none;
+}
+/* line 82, ../../sass/modules/_general_mixins.scss */
+.open .btn-google.dropdown-toggle {
+  background-image: none;
+}
+/* line 93, ../../sass/modules/_general_mixins.scss */
+.btn-google.disabled, .btn-google.disabled:hover, .btn-google.disabled:focus, .btn-google.disabled:active, .btn-google.disabled.active, .btn-google[disabled], .btn-google[disabled]:hover, .btn-google[disabled]:focus, .btn-google[disabled]:active, .btn-google[disabled].active, fieldset[disabled] .btn-google, fieldset[disabled] .btn-google:hover, fieldset[disabled] .btn-google:focus, fieldset[disabled] .btn-google:active, fieldset[disabled] .btn-google.active {
+  background-color: #c63d2d;
+  border-color: #b13728;
+}
+/* line 99, ../../sass/modules/_general_mixins.scss */
+.btn-google .badge {
+  color: #c63d2d;
+  background-color: white;
+}
+
+/* line 54, ../../sass/modules/_general_mixins.scss */
+.btn-twitter {
+  color: white;
+  background-color: #00aced;
+  border-color: #0099d3;
+}
+/* line 65, ../../sass/modules/_general_mixins.scss */
+.btn-twitter:hover, .btn-twitter:focus, .btn-twitter:active, .btn-twitter.active {
+  color: white;
+  background-color: #008ec4;
+  border-color: #006d96;
+}
+/* line 71, ../../sass/modules/_general_mixins.scss */
+.open .btn-twitter.dropdown-toggle {
+  color: white;
+  background-color: #008ec4;
+  border-color: #006d96;
+}
+/* line 78, ../../sass/modules/_general_mixins.scss */
+.btn-twitter:active, .btn-twitter.active {
+  background-image: none;
+}
+/* line 82, ../../sass/modules/_general_mixins.scss */
+.open .btn-twitter.dropdown-toggle {
+  background-image: none;
+}
+/* line 93, ../../sass/modules/_general_mixins.scss */
+.btn-twitter.disabled, .btn-twitter.disabled:hover, .btn-twitter.disabled:focus, .btn-twitter.disabled:active, .btn-twitter.disabled.active, .btn-twitter[disabled], .btn-twitter[disabled]:hover, .btn-twitter[disabled]:focus, .btn-twitter[disabled]:active, .btn-twitter[disabled].active, fieldset[disabled] .btn-twitter, fieldset[disabled] .btn-twitter:hover, fieldset[disabled] .btn-twitter:focus, fieldset[disabled] .btn-twitter:active, fieldset[disabled] .btn-twitter.active {
+  background-color: #00aced;
+  border-color: #0099d3;
+}
+/* line 99, ../../sass/modules/_general_mixins.scss */
+.btn-twitter .badge {
+  color: #00aced;
+  background-color: white;
+}
