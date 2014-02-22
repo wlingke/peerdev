@@ -31,9 +31,83 @@ body {
 
 /* line 1, ../../sass/partials/navigation/_navbar.scss */
 .navbar-white {
-  margin-bottom: 0;
+  border: 1px solid #c8c8c8;
+  background: -webkit-gradient(linear, to bottom, to top, color-stop(0%, #ffffff), color-stop(100%, rgba(255, 255, 255, 0.9)));
+  background: -webkit-linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.9));
+  background: -moz-linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.9));
+  background: -o-linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.9));
+  background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.9));
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.065);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.065);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.065);
   background-color: white;
-  border-bottom: 0;
+}
+/* line 7, ../../sass/partials/navigation/_navbar.scss */
+.navbar-white .navbar-nav > .active > a, .navbar-white .navbar-nav > .open > a {
+  color: white;
+  background-color: #428bca;
+}
+/* line 11, ../../sass/partials/navigation/_navbar.scss */
+.navbar-white .navbar-nav > .active > a:hover, .navbar-white .navbar-nav > .active > a:focus, .navbar-white .navbar-nav > .open > a:hover, .navbar-white .navbar-nav > .open > a:focus {
+  color: white;
+  background-color: #428bca;
+}
+/* line 16, ../../sass/partials/navigation/_navbar.scss */
+.navbar-white .navbar-nav > .active > a .badge, .navbar-white .navbar-nav > .open > a .badge {
+  background-color: white;
+  color: #428bca;
+}
+/* line 23, ../../sass/partials/navigation/_navbar.scss */
+.navbar-white .navbar-nav > li > a:hover, .navbar-white .navbar-nav > li > a:focus {
+  color: white;
+  background-color: #428bca;
+}
+/* line 27, ../../sass/partials/navigation/_navbar.scss */
+.navbar-white .navbar-nav > li > a:hover .badge, .navbar-white .navbar-nav > li > a:focus .badge {
+  background-color: white;
+  color: #428bca;
+}
+
+/* line 37, ../../sass/partials/navigation/_navbar.scss */
+.avatar-nav-container {
+  border-right: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  background-color: #f0f0f0;
+}
+/* line 42, ../../sass/partials/navigation/_navbar.scss */
+.avatar-nav-container > a {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  line-height: 38px !important;
+  display: table !important;
+}
+/* line 49, ../../sass/partials/navigation/_navbar.scss */
+.avatar-nav-container .avatar-nav {
+  float: left;
+  height: 34px;
+  width: 34px;
+}
+/* line 54, ../../sass/partials/navigation/_navbar.scss */
+.avatar-nav-container .name {
+  padding-left: 10px;
+  padding-right: 12px;
+  float: right;
+  position: relative;
+}
+/* line 60, ../../sass/partials/navigation/_navbar.scss */
+.avatar-nav-container .name .name-crop {
+  max-width: 200px;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* line 65, ../../sass/partials/navigation/_navbar.scss */
+.avatar-nav-container .name .fa {
+  position: absolute;
+  margin-top: -7px;
+  top: 50%;
+  right: 0;
 }
 
 /* line 1, ../../sass/partials/navigation/_footer.scss */

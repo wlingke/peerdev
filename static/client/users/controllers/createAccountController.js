@@ -1,4 +1,4 @@
-app.controller('createUserController', function($scope, $http){
+app.controller('createAccountController', function($scope, $http){
 
     $scope.newUser = {};
 

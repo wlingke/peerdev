@@ -30,7 +30,7 @@ module.exports = function (app, passport) {
                     signed: true
                 }
             );
-            res.redirect('/create-user')
+            res.redirect('/create-account')
         })(req, res, next)
     });
 };

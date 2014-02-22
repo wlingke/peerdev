@@ -4,10 +4,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/',
             template: '<a href="/api/facebook">facebook</a>'
         })
-        .state('create_user', {
-            url: '/create-user',
-            templateUrl: '/static/client/users/partials/create-user.html',
-            controller: 'createUserController'
+        .state('create_account', {
+            url: '/create-account',
+            templateUrl: '/static/client/users/partials/create-account.html',
+            controller: 'createAccountController'
         })
 
 

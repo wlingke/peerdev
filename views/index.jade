@@ -6,9 +6,21 @@ html(ng-app='peerdev')
         link(rel='stylesheet', href='/static/css/vendor.css')
         link(rel='stylesheet', href='/static/css/main.css')
     body
-        .alert.alert-danger
-            i(class='fa fa-inbox fa-fw')
-            | Hello World
-        div(ui-view)
-        include footer
+        .bodyWrapper
+            .bodyContainer
 
+                include nav
+
+                .alert.alert-danger
+                    i(class='fa fa-inbox fa-fw')
+                    | Hello World
+                div(ui-view)
+
+
+        footer
+            .container
+                .footer-content
+                    | Footer
+
+
+        include scripts

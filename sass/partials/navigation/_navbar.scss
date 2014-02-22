@@ -1,5 +1,72 @@
 .navbar-white {
-  margin-bottom: 0;
-  background-color: $bg-color-primary;
-  border-bottom: 0;
+  border: 1px solid $border-color-nav;
+  @include background(linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, .9)));
+  @include box-shadow(0 1px 10px rgba(0, 0, 0, 0.065));
+  background-color: rgb(255,255,255);
+
+  .navbar-nav > .active > a, .navbar-nav > .open > a {
+    color: $font-color-inverse;
+    background-color: $blue;
+
+    &:hover, &:focus {
+      color: $font-color-inverse;
+      background-color: $blue;
+    }
+
+    .badge {
+      background-color: $font-color-inverse;
+      color: $blue;
+    }
+  }
+
+  .navbar-nav > li > a {
+    &:hover, &:focus {
+      color: $font-color-inverse;
+      background-color: $blue;
+
+      .badge {
+        background-color: $font-color-inverse;
+        color: $blue;
+      }
+    }
+  }
+}
+
+
+//my profile avatar container
+.avatar-nav-container {
+  border-right: 1px solid $border-color;
+  border-left: 1px solid $border-color;
+  background-color: lighten($grey,1%);
+
+  > a {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    line-height: $navbar-element-height + 10px !important;
+    display: table !important;
+  }
+
+  .avatar-nav {
+    float: left;
+    height: $navbar-element-height + 6px;
+    width: $navbar-element-height + 6px;
+  }
+  .name {
+    padding-left: 10px;
+    padding-right: 12px;
+    float: right;
+    position: relative;
+
+    .name-crop {
+      max-width: 200px;
+      float: left;
+      @include text-crop();
+    }
+    .fa {
+      position: absolute;
+      margin-top: -7px;
+      top: 50%;
+      right: 0;
+    }
+  }
 }
