@@ -1,0 +1,20 @@
+.callout-box {
+  margin: $spacing-default 0;
+  padding: $spacing-default;
+  border-left: 5px solid $border-color-default;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+@include callout-box-gen(default, rgb(150,150,150));
+@include callout-box-gen(primary, $blue);
+@include callout-box-gen(danger, $red);
+@include callout-box-gen(warning, $orange);
+@include callout-box-gen(success, lighten($green,7.5%));

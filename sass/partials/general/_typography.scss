@@ -1,0 +1,15 @@
+a {
+  cursor: pointer;
+
+  &:hover, &:focus {
+    text-decoration: none;
+  }
+}
+
+.alert-link:hover {
+  text-decoration: underline;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}

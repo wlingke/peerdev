@@ -2,9 +2,13 @@ doctype html
 html(ng-app='peerdev')
     head
         title= title
-        link(rel='stylesheet', href='/static/css/style.css')
+        link(rel='stylesheet', href='/static/css/cdn.css')
+        link(rel='stylesheet', href='/static/css/vendor.css')
+        link(rel='stylesheet', href='/static/css/main.css')
     body
-        h1 Hello World
+        .alert.alert-danger
+            i(class='fa fa-inbox fa-fw')
+            | Hello World
         div(ui-view)
         include footer
 

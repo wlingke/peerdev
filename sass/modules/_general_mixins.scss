@@ -1,0 +1,51 @@
+@mixin anchor-color-gen($color, $type: darken, $percent: 15%, $cssSelector: NONE) {
+  @if $cssSelector == NONE {
+    a {
+      color: $color;
+      &:hover, &:focus {
+        @if $type == lighten {
+          color: lighten($color, $percent);
+        } @else {
+          color: darken($color, $percent);
+        }
+      }
+    }
+  }@else {
+    #{$cssSelector} {
+      color: $color;
+      &:hover, &:focus {
+        @if $type == lighten {
+          color: lighten($color, $percent);
+        } @else {
+          color: darken($color, $percent);
+        }
+      }
+    }
+  }
+}
+
+@mixin text-crop($crop-type: ellipsis) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: $crop-type;
+}
+
+@mixin callout-box-gen($name, $base-color) {
+  .callout-box-#{$name} {
+    background-color: lighten($base-color, 32.5%);
+    border-color: lighten($base-color, 27.5%);
+  }
+}
+
+//generates clear margin and padding utilities
+$direction: null "-left" "-right" "-top" "-bottom";
+@mixin clear-spacing($dir) {
+
+  .clear-pad#{$dir} {
+    padding#{$dir}: 0 !important;
+  }
+
+  .clear-mar#{$dir} {
+    margin#{$dir}: 0 !important;
+  }
+}

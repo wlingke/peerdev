@@ -1,0 +1,25 @@
+html, body {
+  height: 100%
+}
+
+body {
+  background-color: $bg-color-body;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+.bodyWrapper {
+  min-height: 100%;
+  margin-bottom: -$footer-height - $footer-margin;
+}
+
+.bodyContainer {
+  padding-bottom: $footer-height + $footer-margin;
+  height: 100%;
+  padding-top: $navbar-height + $navbar-margin;
+}
+
+:focus {
+  outline: none;
+}

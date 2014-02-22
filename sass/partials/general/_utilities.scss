@@ -1,0 +1,109 @@
+@each $dir in $direction {
+  @include clear-spacing($dir);
+}
+
+.position-container {
+  position: relative;
+}
+
+.pull-top-right {
+  position: absolute;
+  top: $spacing-default;
+  right: $spacing-default;
+
+  &.pull-tight {
+    top: 0;
+    right: 0;
+  }
+}
+
+.pull-bottom-right {
+  position: absolute;
+  bottom: $spacing-default;
+  right: $spacing-default;
+
+  &.pull-tight {
+    bottm: 0;
+    right: 0;
+  }
+}
+
+.pull-top-left {
+  position: absolute;
+  top: $spacing-default;
+  left: $spacing-default;
+
+  &.pull-tight {
+    top: 0;
+    left: 0;
+  }
+}
+
+.pull-bottom-left {
+  position: absolute;
+  bottom: $spacing-default;
+  left: $spacing-default;
+
+  &.pull-tight {
+    bottom: 0;
+    left: 0;
+  }
+}
+
+//hover masks
+
+.hover-mask:hover {
+  opacity: .95;
+}
+
+.hover-mask-group:hover {
+  .hover-mask-element {
+    opacity: .95;
+  }
+}
+
+//hover appear
+.hover-visible-block {
+  visibility: hidden;
+}
+
+.hover-visible-group:hover, .show-hover {
+  .hover-visible-block {
+    visibility: visible;
+  }
+}
+
+.hover-display-block {
+  display:none;
+}
+
+
+.hover-display-group:hover, .show-hover {
+  .hover-display-block {
+    display: block;
+  }
+}
+
+.text-crop {
+  @include text-crop;
+}
+
+.help-link {
+  cursor: help;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.on-top {
+  z-index: 10000;
+}
+
+.corner-item {
+  &.pull-right {
+    margin-left: 10px;
+  }
+  &.pull-left {
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,27 @@
+footer {
+  height: $footer-height - 1px; //fixes scrollbar showing up on full-dw layouts
+  margin-top: $footer-margin;
+  background-color: $bg-color-secondary;
+  border-top: 1px solid $border-color-nav;
+  @include box-shadow(0 1px 10px rgba(0, 0, 0, 0.065));
+
+  color: $font-color-secondary;
+  vertical-align: middle;
+  padding: 15px 0;
+
+  //.container {
+  //  height: 100%;
+  //}
+
+  @include anchor-color-gen($font-color-secondary);
+
+  a {
+    text-transform: capitalize;
+  }
+
+  .footer-content {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
