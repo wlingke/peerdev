@@ -4,6 +4,7 @@ var app = angular.module('peerdev', [
     ])
     .run(function (Initialize, $rootScope, $state) {
         Initialize.getCurrentUser();
+        Initialize.models();
 
         $rootScope.$on('$stateChangeError', function (e, to, toParams, from, fromParams, error) {
             if (error.type === 'redirect') {

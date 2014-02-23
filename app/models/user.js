@@ -4,12 +4,12 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-    userId:{
-        type: String,
-        required: true,
-        unique: true
-    },
     data: {
+        userId:{
+            type: String,
+            required: true,
+            unique: true
+        },
         username: {
             type: String,
             required: true
@@ -36,7 +36,8 @@ var UserSchema = new Schema({
         meta: {
             updated_at: Date,
             last_visit: Date
-        }
+        },
+        model_type: String
     },
     providers:{
         facebook_id: {
@@ -50,6 +51,9 @@ UserSchema.pre('save', function (next) {
     this.data.meta.updated_at = new Date;
     if (!this.data.meta.created_at) {
         this.data.meta.created_at = new Date;
+    }
+    if(!this.data.model_type){
+        this.data.model_type = "user";
     }
     next();
 });

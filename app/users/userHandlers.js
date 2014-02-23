@@ -15,7 +15,7 @@ var userAuth = function (req, res, next, user, authType) {
     var search = {};
     search['providers.' + prop] = user.id;
 
-    User.findOne(search, 'userId data', function (err, profile) {
+    User.findOne(search, 'data', function (err, profile) {
         if (err) {next(err)}
 
         if (profile) {
@@ -45,7 +45,7 @@ module.exports.create = function (req, res, next) {
 
     };
     _.assign(newUser.data, req.body);
-    newUser.userId = newUser.data.username.replace('.', '');
+    newUser.data.userId = newUser.data.username.replace('.', '');
 
     var user = new User(newUser);
     user.save(function (err) {

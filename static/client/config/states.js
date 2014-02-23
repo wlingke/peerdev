@@ -6,7 +6,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('create_account', {
             url: '/create-account',
-            templateUrl: '/static/client/users/partials/create-account.html',
+            templateUrl: '/static/client/users/create-account/partials/create-account.html',
             controller: 'createAccountController'
         })
 
