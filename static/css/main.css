@@ -29,6 +29,11 @@ body {
   outline: none;
 }
 
+/* line 1, ../../sass/partials/structure/_layout.scss */
+.container-fixed-sm {
+  width: 500px;
+}
+
 /* line 1, ../../sass/partials/navigation/_navbar.scss */
 .navbar-white {
   border: 1px solid #c8c8c8;

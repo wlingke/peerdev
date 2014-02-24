@@ -1,0 +1,4 @@
+<strong ng-class="{'text-info': rvStatus.isWorking, 'text-danger': rvStatus.hasError, 'text-success': rvStatus.hasSuccess}">
+    <span ng-show="rvStatus.isWorking"><i class="fa fa-spinner fa-spin ie8n9-hide fa-fw"></i></span>
+    {{ rvStatus.msg }}
+</strong>

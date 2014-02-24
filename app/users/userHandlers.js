@@ -52,8 +52,12 @@ module.exports.create = function (req, res, next) {
         if (err) {
             res.send(500, err)
         } else {
+            req.session.profile = {
+                data: user.data,
+                _id: user._id
+            };
             res.send(201);
-        }
+        };
     })
 };
 
@@ -74,6 +78,6 @@ module.exports.currentUser = function (req, res, next) {
 };
 
 module.exports.logout = function (req, res, next) {
-    req.session.profile = null;
+    req.session.destroy();
     res.send(204);
 }

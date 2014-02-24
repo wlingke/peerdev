@@ -1,6 +1,9 @@
 var app = angular.module('peerdev', [
         'ui.router',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'RVInlineValidate',
+        'RVStatus',
+        'RVAlerts'
     ])
     .run(function (Initialize, $rootScope, $state) {
         Initialize.getCurrentUser();
