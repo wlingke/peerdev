@@ -1,4 +1,4 @@
-app.factory('BaseModel', function (ModelRelations) {
+app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
 
     function BaseModel(json) {
         this.data = {};
@@ -13,7 +13,6 @@ app.factory('BaseModel', function (ModelRelations) {
         json = json || {
             relations: {},
             data: {},
-            id: -1
         };
         this.data = json.data;
         this.id = json._id;
@@ -37,53 +36,86 @@ app.factory('BaseModel', function (ModelRelations) {
         }
 
         Model = ModelRelations.getModel(relation_data[0].data.type);
-        if(angular.isDefined(Model)){
+        if (angular.isDefined(Model)) {
             this.relations[relation_name].push(new Model(relation_data));
-        }else {
+        } else {
             this.relations[relation_name].push(relation_data);
         }
     };
 
-    BaseModel.prototype.getId = function(){
+    BaseModel.prototype.getId = function () {
         return this.id;
     };
-    BaseModel.prototype.getType = function(){
+    BaseModel.prototype.getType = function () {
         return this.data.type;
     };
     BaseModel.prototype.get = function (attr_name) {
         return angular.isDefined(this.data[attr_name]) ? this.data[attr_name] : "";
     };
-    BaseModel.prototype.getRelation = function(relation_name){
+    BaseModel.prototype.getRelation = function (relation_name) {
         return this.relations[relation_name] || [];
     };
-    BaseModel.prototype.getOneRelation = function(relation_name){
+    BaseModel.prototype.getOneRelation = function (relation_name) {
         return this.getRelation(relation_name)[0];
     };
-    BaseModel.prototype.getUrl = function(){
+    BaseModel.prototype.getUrl = function () {
         return this.url;
     };
-    BaseModel.prototype.save = function(data){
+    BaseModel.prototype.save = function (data) {
         if (angular.isDefined(this.getId())) {
             return this.update(data);
         } else {
             return this.construct();
         }
     };
-    BaseModel.prototype.update = function(data){
+    BaseModel.prototype.update = function (data) {
+        data = data || this.data;
+        var deferred = $q.defer();
+
+        $http({
+            method: "POST",
+            url: this.getUrl() + "/" + this.getId(),
+            data: data
+        })
+            .success(function(data){
+                deferred.resolve(data);
+            })
+            .error(function(err){
+                $log.error(err)
+                deferred.reject(err)
+            });
+
+        return deferred.promise
 
     };
-    BaseModel.prototype.construct = function(){
+    BaseModel.prototype.construct = function () {
+        var self = this;
+        var deferred = $q.defer();
 
+        $http({
+            method: "POST",
+            url: this.getUrl(),
+            data: self.data
+        })
+            .success(function(data){
+                self.id = data.id;
+                deferred.resolve(data);
+            })
+            .error(function(err){
+                $log.error(err);
+                deferred.reject(err)
+            });
+        return deferred.promise
     };
 
-    BaseModel.inherit = function(subType){
+    BaseModel.inherit = function (subType) {
         var prototype = Object.create(BaseModel.prototype);
         prototype.constructor = subType;
         subType.prototype = prototype;
     };
 
     return {
-        getModel: function(){
+        getModel: function () {
             return BaseModel;
         },
         inherit: BaseModel.inherit

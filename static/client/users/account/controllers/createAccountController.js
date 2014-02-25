@@ -1,12 +1,12 @@
 app.controller('createAccountController', function ($scope, $http, StatusService, $window, User, UniversalAlertService, RVValidate) {
-    $scope.newUser = {};
+    $scope.newUser = User.init();
     $scope.create_status = StatusService.createSaveStatus();
 
     $scope.createUser = function () {
         RVValidate.validate($scope, 'create_account', {
             status: 'create_status',
             valid: function () {
-                User.createUser($scope.newUser)
+                $scope.newUser.save()
                     .then(function () {
                         $window.location.pathname = '/account';
                     }, function (err) {
