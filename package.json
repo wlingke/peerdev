@@ -14,7 +14,8 @@
     "lodash": "~2.4.1",
     "connect-mongo": "~0.4.0",
     "forever": "~0.10.11",
-    "forever-monitor": "~1.2.3"
+    "forever-monitor": "~1.2.3",
+    "validator": "~3.3.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

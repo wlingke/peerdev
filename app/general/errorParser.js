@@ -1,5 +1,7 @@
+var _ = require('lodash');
+
 /**
- * Error parsing module for handling saving of data to the database
+ * Error parsing module for parsing server side error objects into a format the client side can display.
  *
  * Use getMessages to obtain an object of error codes and messages to send to client. When using getMessages,
  * one must specify which error codes they want to check against since it doesn't make sense to check against all of them each time.
@@ -37,18 +39,18 @@ var errorCodes = {
         check: checkError.bind(null, 'data.userId', 'unique'),
         message: 'This username is unavailable.'
     },
-    pd1001: {
-        check: checkError.bind(null, 'data.userId', 'required'),
-        message: 'Username is required'
-    },
+//    pd1001: {
+//        check: checkError.bind(null, 'data.userId', 'required'),
+//        message: 'Username is required'
+//    },
     pd1100: {
         check: checkError.bind(null, 'data.email', 'unique'),
         message: 'This email is already in use.'
-    },
-    pd1101: {
-        check: checkError.bind(null, 'data.email', 'required'),
-        message: 'Email is required'
     }
+//    pd1101: {
+//        check: checkError.bind(null, 'data.email', 'required'),
+//        message: 'Email is required'
+//    }
 };
 
 
@@ -83,5 +85,7 @@ module.exports.parse = function(codes, err, dest){
             }
         })
     }
-    return dest;
+
+
+    return _.isEmpty(dest) ? undefined : dest;
 };

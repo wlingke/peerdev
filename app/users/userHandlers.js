@@ -31,6 +31,13 @@ var userAuth = function (req, res, next, user, authType) {
     });
 };
 
+var setUserId = function(username){
+    if (typeof username === 'string') {
+        return username.replace('.', '');
+    }
+    return '';
+}
+
 module.exports.create = function (req, res, next) {
     var cookie = req.signedCookies.auth;
     var newUser = {
@@ -43,14 +50,13 @@ module.exports.create = function (req, res, next) {
     };
     _.assign(newUser.data, req.body);
 
-    if (typeof newUser.data.username === 'string') {
-        newUser.data.userId = newUser.data.username.replace('.', '');
-    }
+    newUser.data.userId = setUserId(newUser.data.username);
 
     var user = new User(newUser);
     user.save(function (err) {
         if (err) {
-            return res.send(400, errorParser.parse(['pd1000', 'pd1001', 'pd1100', 'pd1101'], err));
+            res.send(400, errorParser.parse(['pd1000', 'pd1100'], err));
+            return next(err);
         }
 
         req.session.profile = {
@@ -67,13 +73,12 @@ module.exports.save = function (req, res, next) {
             return res.send(400, err);
         }
         _.assign(model.data, req.body);
-        if(typeof model.data.username === 'string'){
-            model.data.userId = model.data.username.replace('.', '');
-        }
+        model.data.userId = setUserId(model.data.username);
 
         model.save(function(err){
             if(err){
-                return res.send(400, errorParser.parse(['pd1000', 'pd1001', 'pd1100', 'pd1101'], err));
+                res.send(400, errorParser.parse(['pd1000', 'pd1100'], err));
+                return next(err);
             }
 
             req.session.profile = model;

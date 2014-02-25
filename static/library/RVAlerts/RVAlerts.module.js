@@ -129,7 +129,7 @@ RVAlerts.factory("UniversalAlertService", function ($interval) {
             var m = msg || "Oops! Something went wrong on our end.";
             removeAllTempAlerts();
             var message = m + " Please refresh and try again or " +
-                "<a href='mailto:support@renovatd.com' target='_blank'>email us</a> if you continue to receive this error.";
+                "<a href='mailto:support@peerdev.com' target='_blank'>email us</a> if you continue to receive this error.";
             createAlert(message, permanent, "error");
         },
 
