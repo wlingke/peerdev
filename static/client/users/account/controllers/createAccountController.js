@@ -3,9 +3,9 @@ app.controller('createAccountController', function ($scope, $http, StatusService
     $scope.create_status = StatusService.createSaveStatus();
 
     $scope.createUser = function () {
-//        RVValidate.validate($scope, 'create_account', {
-//            status: 'create_status',
-//            valid: function () {
+        RVValidate.validate($scope, 'create_account', {
+            status: 'create_status',
+            valid: function () {
                 User.createUser($scope.newUser)
                     .then(function () {
                         $window.location.pathname = '/account';
@@ -18,7 +18,7 @@ app.controller('createAccountController', function ($scope, $http, StatusService
                             UniversalAlertService.createTryAgainErrorAlert();
                         }
                     });
-//            }
-//        });
+            }
+        });
     }
 });
