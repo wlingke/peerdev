@@ -38,14 +38,14 @@ var UserSchema = new Schema({
             required: true,
             unique: true,
             validate: [function(val){
-                return validator.isEmail(val) && validator.isLength(0,255);
+                return validator.isEmail(val) && validator.isLength(val, 0,255);
             }, validateMsg('must be an email with length less than 255')]
         },
         about: {
             type: String,
             validate: [function(val){
                 //front end only allows 1000, but allowing extra here for some buffer
-                return validator.isLength(0, 1500);
+                return validator.isLength(val,0, 1500);
             }, validateMsg('length cannot exceed 1500')]
         },
         website: {
@@ -64,7 +64,7 @@ var UserSchema = new Schema({
             state: {
                 type: String,
                 validate: [function(val){
-                    return validator.isLength(0,20);
+                    return validator.isLength(val,0,20);
                 }, validateMsg('length cannot exceed 20')]
             },
             longitude: String,

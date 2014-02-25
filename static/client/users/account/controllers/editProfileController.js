@@ -1,4 +1,4 @@
-app.controller('editProfileController', function ($scope, $rootScope, GeneralCategories, StatusService, RVValidate, UniversalAlertService, Initialize) {
+app.controller('editProfileController', function ($scope, $rootScope, GeneralCategories, StatusService, RVValidate, UniversalAlertService, Initialize, $q) {
     $scope.profile = angular.copy($rootScope.current_user);
     $scope.states = GeneralCategories.states;
     $scope.save_status = StatusService.createSaveStatus();
@@ -18,6 +18,7 @@ app.controller('editProfileController', function ($scope, $rootScope, GeneralCat
                         } else {
                             UniversalAlertService.createTryAgainErrorAlert();
                         }
+                        return $q.reject()
                     })
                     .then(function () {
                         $scope.save_status.reset();

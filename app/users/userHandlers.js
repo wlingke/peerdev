@@ -31,7 +31,7 @@ var userAuth = function (req, res, next, user, authType) {
     });
 };
 
-var setUserId = function(username){
+var setUserId = function (username) {
     if (typeof username === 'string') {
         return username.replace('.', '');
     }
@@ -55,8 +55,7 @@ module.exports.create = function (req, res, next) {
     var user = new User(newUser);
     user.save(function (err) {
         if (err) {
-            res.send(400, errorParser.parse(['pd1000', 'pd1100'], err));
-            return next(err);
+            return errorParser.handle(req, res, next, ['pd1000', 'pd1100'], err);
         }
 
         req.session.profile = {
@@ -75,10 +74,9 @@ module.exports.save = function (req, res, next) {
         _.assign(model.data, req.body);
         model.data.userId = setUserId(model.data.username);
 
-        model.save(function(err){
-            if(err){
-                res.send(400, errorParser.parse(['pd1000', 'pd1100'], err));
-                return next(err);
+        model.save(function (err) {
+            if (err) {
+                return errorParser.handle(req, res, next, ['pd1000', 'pd1100'], err);
             }
 
             req.session.profile = model;

@@ -21,12 +21,12 @@ var _ = require('lodash');
 
 var checkError = function (path, type, err) {
     //handles native mongo errors for unique check
-    if(err.name === 'MongoError' && type === 'unique'){
+    if (err.name === 'MongoError' && type === 'unique') {
         if ((err.code === 11000 || err.code === 11001) && typeof err.err === 'string') {
             return err.err.indexOf(path) !== -1;
         }
         return false;
-    }else if(err.name === 'ValidationError'){
+    } else if (err.name === 'ValidationError') {
         //Mongoose validation errors can produces multiple errors arranged in err.errors in an object with the
         //path as the key.
         return !!err.errors[path] && err.errors[path].type === type;
@@ -62,7 +62,7 @@ var errorCodes = {
  */
 module.exports.addError = function (code, dest) {
     dest = dest || {};
-    if (typeof code === 'string' && errorCodes[code] ) {
+    if (typeof code === 'string' && errorCodes[code]) {
         dest[code] = errorCodes[code].message
     }
     return dest;
@@ -75,17 +75,25 @@ module.exports.addError = function (code, dest) {
  * @param dest (Object, optional)
  * @returns {{}|*}
  */
-
-module.exports.parse = function(codes, err, dest){
+var parse = function (codes, err, dest) {
     dest = dest || {};
-    if(Array.isArray(codes) && codes.length !== 0){
-        codes.forEach(function(val, index, self){
-            if(errorCodes[val] && errorCodes[val].check(err)){
+    if (Array.isArray(codes) && codes.length !== 0) {
+        codes.forEach(function (val, index, self) {
+            if (errorCodes[val] && errorCodes[val].check(err)) {
                 dest[val] = errorCodes[val].message;
             }
         })
     }
-
-
     return _.isEmpty(dest) ? undefined : dest;
+};
+
+module.exports.parse = parse;
+
+module.exports.handle = function (req, res, next, codes, err) {
+    var errors = parse(codes, err);
+    if(errors){
+        res.send(400, errors);
+    }else {
+        next(err);
+    }
 };
