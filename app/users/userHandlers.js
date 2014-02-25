@@ -43,21 +43,43 @@ module.exports.create = function (req, res, next) {
     };
     _.assign(newUser.data, req.body);
 
-    if(typeof newUser.data.username === 'string'){
+    if (typeof newUser.data.username === 'string') {
         newUser.data.userId = newUser.data.username.replace('.', '');
     }
 
     var user = new User(newUser);
     user.save(function (err) {
         if (err) {
-            res.send(400, errorParser.parse(['pd1000', 'pd1001', 'pd1100', 'pd1101'], err));
-        } else {
-            req.session.profile = {
-                data: user.data,
-                _id: user._id
-            };
-            res.send(201);
+            return res.send(400, errorParser.parse(['pd1000', 'pd1001', 'pd1100', 'pd1101'], err));
         }
+
+        req.session.profile = {
+            data: user.data,
+            _id: user._id
+        };
+        res.send(201);
+    })
+};
+
+module.exports.save = function (req, res, next) {
+    User.findById(req.params.id, 'data', function (err, model) {
+        if (err) {
+            return res.send(400, err);
+        }
+        _.assign(model.data, req.body);
+        if(typeof model.data.username === 'string'){
+            model.data.userId = model.data.username.replace('.', '');
+        }
+
+        model.save(function(err){
+            if(err){
+                return res.send(400, errorParser.parse(['pd1000', 'pd1001', 'pd1100', 'pd1101'], err));
+            }
+
+            req.session.profile = model;
+            res.send(200, model);
+        })
+
     })
 };
 
