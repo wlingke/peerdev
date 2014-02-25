@@ -38,7 +38,7 @@ var UserSchema = new Schema({
         ],
         meta: {
             updated_at: Date,
-            last_visit: Date
+            created_at: Date
         },
         model_type: String
     },

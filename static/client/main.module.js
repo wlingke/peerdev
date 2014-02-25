@@ -5,9 +5,12 @@ var app = angular.module('peerdev', [
         'RVStatus',
         'RVAlerts'
     ])
-    .run(function (Initialize, $rootScope, $state) {
+    .run(function (Initialize, $rootScope, $state, ModelRelations, User) {
         Initialize.getCurrentUser();
         Initialize.models();
+        ModelRelations.registerModels({
+            user: User
+        });
 
         $rootScope.$on('$stateChangeError', function (e, to, toParams, from, fromParams, error) {
             if (error.type === 'redirect') {

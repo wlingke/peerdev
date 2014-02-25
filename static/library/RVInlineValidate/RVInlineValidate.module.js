@@ -1,4 +1,4 @@
-var RVInlineValidate = angular.module('RVInlineValidate',[]);
+var RVInlineValidate = angular.module('RVInlineValidate', []);
 RVInlineValidate.directive('rvInlineValidate', function ($compile, $rootScope, $log) {
     return {
         require: 'ngModel',
@@ -55,7 +55,7 @@ RVInlineValidate.directive('rvInlineValidate', function ($compile, $rootScope, $
                 });
             }
 
-            if(angular.isDefined(attrs.usernameValidate)){
+            if (angular.isDefined(attrs.usernameValidate)) {
                 scope.error_tracker.username = {
                     msg: "Your username can only contain letters (a-z), numbers (0-9) and periods (.)",
                     hasError: false
@@ -182,7 +182,7 @@ RVInlineValidate.directive('rvInlineValidate', function ($compile, $rootScope, $
                 scope.updateErrorTracker();
             });
 
-            if (angular.isDefined(scope.submitCallback)) {
+            if (angular.isDefined(attrs.submitCallback)) {
                 scope.$watch('submitCallback', function (newVal) {
                     if (!!newVal) {
                         scope.messages.push(newVal);
@@ -192,5 +192,50 @@ RVInlineValidate.directive('rvInlineValidate', function ($compile, $rootScope, $
                 });
             }
         }
+    };
+});
+RVInlineValidate.factory('RVValidate', function () {
+
+    /**
+     *
+     * @param scope (Scope) - scope
+     * @param form_name (string) - name of form to validate (should be on published onto scope)
+     * @param options = {
+     *     valid: function to be called if valid
+     *     invalid: function to be called if invalid
+     *     status: if string, looks for status on current scope, if object, it just binds to it
+     * }
+     */
+    function validate(scope, form_name, options) {
+        options = options || {};
+
+        //sets status object based on string or object
+        var status;
+        if (typeof options.status === 'string'){
+            status = scope[options.status];
+        } else {
+            status = options.status;
+        }
+
+        if (scope[form_name].$invalid) {
+            scope.$broadcast('invalid_submit');
+            if (status) {
+                status.showError();
+                var off = scope.$watch(form_name + '.$valid', function (newVal) {
+                    if (newVal) {
+                        status.reset();
+                        off();
+                    }
+                });
+            }
+            angular.isFunction(options.invalid) ? options.invalid() : angular.noop();
+        } else {
+            !!status ? status.showWorking() : angular.noop();
+            angular.isFunction(options.valid) ? options.valid() : angular.noop();
+        }
+    }
+
+    return {
+        validate: validate
     };
 });

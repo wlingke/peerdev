@@ -1,10 +1,5 @@
-<form name="create_user" class="container-fixed-sm center-block">
+<form name="create_account" class="container-fixed-sm center-block">
     <h2 class="text-center">Create Your Account</h2>
-
-    <div class="form-group">
-        <input type="text" class="form-control input-lg" ng-model="newUser.name" placeholder="Display Name"
-               ng-maxlength="80" required rv-inline-validate>
-    </div>
     <div class="form-group">
         <input type="text" class="form-control input-lg" ng-model="newUser.username" placeholder="Username"
                ng-maxlength="30" ng-minlength="5" required rv-inline-validate submit-callback="usernameError"

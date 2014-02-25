@@ -1,4 +1,4 @@
-app.factory('User', function (BaseModel, $http, $q) {
+app.factory('User', function (BaseModel, $http, $q, $log) {
     function User(json) {
         BaseModel.getModel().call(this, json)
         this.url = User.url;
@@ -20,6 +20,7 @@ app.factory('User', function (BaseModel, $http, $q) {
             .success(function (data) {
                 deferred.resolve(data)
             }).error(function (err) {
+                $log.error(err);
                 deferred.reject(err)
             });
         return deferred.promise;

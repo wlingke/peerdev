@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    errorParser = require('app/general/errorParser');
 
 var userAuth = function (req, res, next, user, authType) {
     var prop;
@@ -16,8 +17,6 @@ var userAuth = function (req, res, next, user, authType) {
     search['providers.' + prop] = user.id;
 
     User.findOne(search, 'data', function (err, profile) {
-        if (err) {next(err)}
-
         if (profile) {
             req.session.profile = profile;
             res.redirect('/');
@@ -26,11 +25,10 @@ var userAuth = function (req, res, next, user, authType) {
             cookie[prop] = user.id;
             cookie.name = user.displayName;
 
-            res.cookie('auth', cookie,{signed: true});
+            res.cookie('auth', cookie, {signed: true});
             res.redirect('/create-account')
         }
     });
-
 };
 
 module.exports.create = function (req, res, next) {
@@ -40,24 +38,26 @@ module.exports.create = function (req, res, next) {
             facebook_id: cookie.facebook_id
         },
         data: {
-            name: cookie.display_name
+            name: cookie.name
         }
-
     };
     _.assign(newUser.data, req.body);
-    newUser.data.userId = newUser.data.username.replace('.', '');
+
+    if(typeof newUser.data.username === 'string'){
+        newUser.data.userId = newUser.data.username.replace('.', '');
+    }
 
     var user = new User(newUser);
     user.save(function (err) {
         if (err) {
-            res.send(500, err)
+            res.send(400, errorParser.parse(['pd1000', 'pd1001', 'pd1100', 'pd1101'], err));
         } else {
             req.session.profile = {
                 data: user.data,
                 _id: user._id
             };
             res.send(201);
-        };
+        }
     })
 };
 
