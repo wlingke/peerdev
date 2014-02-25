@@ -32,6 +32,7 @@ body {
 /* line 1, ../../sass/partials/structure/_layout.scss */
 .container-fixed-sm {
   width: 500px;
+  margin: 0 auto;
 }
 
 /* line 1, ../../sass/partials/navigation/_navbar.scss */
@@ -308,6 +309,11 @@ footer .footer-content {
 /* line 106, ../../sass/partials/general/_utilities.scss */
 .corner-item.pull-left {
   margin-right: 10px;
+}
+
+/* line 111, ../../sass/partials/general/_utilities.scss */
+.rv-overflow-auto {
+  overflow: auto;
 }
 
 /* line 1, ../../sass/partials/general/_typography.scss */

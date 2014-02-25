@@ -8,7 +8,7 @@ app.controller('createAccountController', function ($scope, $http, StatusService
             valid: function () {
                 $scope.newUser.save()
                     .then(function () {
-                        $window.location.pathname = '/account';
+                        $window.location.pathname = '/profile';
                     }, function (err) {
                         $scope.create_status.reset();
                         if (err.pd1000 || err.pd1100) {

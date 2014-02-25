@@ -10,16 +10,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'createAccountController'
         })
 
-        .state('account',{
-            url: '/account',
-            template: 'this is logged in area',
+        .state('profile',{
+            url: '/profile',
+            templateUrl: '/static/client/users/account/partials/edit-profile.html',
+            controller: 'editProfileController',
             resolve:{
                 routeCheck: ["RouteCheck", function (RouteCheck) {
                     return RouteCheck.loggedIn();
                 }]
             }
         })
-
 
         //route errors
         .state('route_error', {

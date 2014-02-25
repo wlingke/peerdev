@@ -134,10 +134,10 @@ RVInlineValidate.directive('rvInlineValidate', function ($compile, $rootScope, $
                 scope.showingCharLeft = false;
             }
 
-            var help_block = $compile('<div class="help-block pull-left" ng-show="messages.length !== 0">' +
+            var help_block = $compile('<div class="rv-overflow-auto"><div class="help-block pull-left" ng-show="messages.length !== 0">' +
                 '<ul class="list-unstyled"><li ng-repeat="message in messages">{{message}}</li></ul></div>' +
                 '<div class="pull-right rv-help-block" ng-class="{\'text-danger\': ngModel.length >= maxlength}" ng-if="!!maxlength" ng-show="showingCharLeft">' +
-                '{{maxlength - ngModel.length}}</div>')(scope.$new());
+                '{{maxlength - ngModel.length}}</div></div>')(scope.$new());
 
 
             //handles where to append help_block
@@ -218,7 +218,7 @@ RVInlineValidate.factory('RVValidate', function () {
         }
 
         if (scope[form_name].$invalid) {
-            scope.$broadcast('invalid_submit');
+            scope.$broadcast('invalid-submit');
             if (status) {
                 status.showError();
                 var off = scope.$watch(form_name + '.$valid', function (newVal) {
