@@ -1,4 +1,4 @@
-app.factory('User', function (BaseModel, GoogleMaps, $q) {
+app.factory('User', function (BaseModel, GoogleMaps, $q, Utilities) {
     function User(json) {
         BaseModel.getModel().call(this, json)
         this.url = User.url;
@@ -26,6 +26,11 @@ app.factory('User', function (BaseModel, GoogleMaps, $q) {
 
     User.prototype.save = function (data, setLocation) {
         var self = this;
+
+        // Ensures URLs have a protocol
+        this.data.website = Utilities.ensureUrlProtocol(this.data.website);
+
+        // Handles geocoding location
         if (!this.hasCityState()) {
             this.data.loc = [];
         }

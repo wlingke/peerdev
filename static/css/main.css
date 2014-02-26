@@ -14,12 +14,12 @@ body {
 /* line 12, ../../sass/partials/structure/_window.scss */
 .bodyWrapper {
   min-height: 100%;
-  margin-bottom: -65px;
+  margin-bottom: -75px;
 }
 
 /* line 17, ../../sass/partials/structure/_window.scss */
 .bodyContainer {
-  padding-bottom: 65px;
+  padding-bottom: 75px;
   height: 100%;
   padding-top: 65px;
 }
@@ -120,7 +120,7 @@ body {
 /* line 1, ../../sass/partials/navigation/_footer.scss */
 footer {
   height: 49px;
-  margin-top: 15px;
+  margin-top: 25px;
   background-color: #ebebeb;
   border-top: 1px solid #c8c8c8;
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.065);
