@@ -1,0 +1,95 @@
+.container-pills {
+  margin: 0 -$pill-spacing;
+}
+
+.pills-small {
+  .pill {
+    font-size: .9em;
+    width: 60px;
+    text-align: center;
+  }
+
+  .pill-text {
+    padding: 0;
+  }
+}
+
+.pill {
+  display: inline-block;
+  margin: ($pill-spacing * 2) $pill-spacing;
+  padding: ($pill-spacing * 2) ($pill-spacing * 4);
+  border: 1px solid $border-color;
+  @include border-radius($border-radius-default);
+  @include anchor-color-gen(lighten($font-color-default, 35%));
+}
+
+.pill-text {
+  padding-right: 10px;
+  text-transform: capitalize;
+}
+
+.pill-default {
+  background-color: rgb(245, 245, 245);
+}
+
+.pill-red {
+  background-color: hsl(360, 100%, 37%);
+  @include anchor-color-gen($font-color-inverse);
+  color: $font-color-inverse;
+}
+
+.pill-blue {
+  background-color: hsl(245, 100%, 38%);
+  @include anchor-color-gen($font-color-inverse);
+  color: $font-color-inverse;
+}
+
+.pill-yellow {
+  background-color: hsl(49, 87%, 54%);
+}
+
+.pill-green {
+  background-color: hsl(138, 55%, 44%);
+  @include anchor-color-gen($font-color-inverse);
+  color: $font-color-inverse;
+}
+
+.pill-black {
+  background-color: hsl(0, 0%, 10%);
+  @include anchor-color-gen($font-color-inverse);
+  color: $font-color-inverse;
+}
+
+.pill-white {
+  background-color: white;
+}
+
+.pill-brown {
+  background-color: hsl(23, 45%, 45%);
+  @include anchor-color-gen($font-color-inverse);
+  color: $font-color-inverse;
+}
+
+.pill-beige {
+  background-color: hsl(59, 58%, 86%);
+}
+
+.pill-orange {
+  background-color: hsl(38, 92%, 56%);
+  @include anchor-color-gen($font-color-inverse);
+  color: $font-color-inverse;
+}
+
+.pill-grey {
+  background-color: rgb(230, 230, 230);
+}
+
+.pill-purple {
+  background-color: hsl(284, 84%, 61%);
+  @include anchor-color-gen($font-color-inverse);
+  color: $font-color-inverse;
+}
+
+.pill-pink {
+  background-color: hsl(324, 84%, 74%);
+}

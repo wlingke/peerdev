@@ -527,3 +527,174 @@ a:hover, a:focus {
   color: #00aced;
   background-color: white;
 }
+
+/* line 1, ../../sass/partials/general/_pills.scss */
+.container-pills {
+  margin: -2px;
+}
+
+/* line 6, ../../sass/partials/general/_pills.scss */
+.pills-small .pill {
+  font-size: .9em;
+  width: 60px;
+  text-align: center;
+}
+/* line 12, ../../sass/partials/general/_pills.scss */
+.pills-small .pill-text {
+  padding: 0;
+}
+
+/* line 17, ../../sass/partials/general/_pills.scss */
+.pill {
+  display: inline-block;
+  margin: 4px 2px;
+  padding: 4px 8px;
+  border: 1px solid #dddddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 3, ../../sass/modules/_general_mixins.scss */
+.pill a {
+  color: #8c8c8c;
+}
+/* line 5, ../../sass/modules/_general_mixins.scss */
+.pill a:hover, .pill a:focus {
+  color: #666666;
+}
+
+/* line 26, ../../sass/partials/general/_pills.scss */
+.pill-text {
+  padding-right: 10px;
+  text-transform: capitalize;
+}
+
+/* line 31, ../../sass/partials/general/_pills.scss */
+.pill-default {
+  background-color: whitesmoke;
+}
+
+/* line 35, ../../sass/partials/general/_pills.scss */
+.pill-red {
+  background-color: #bd0000;
+  color: white;
+}
+/* line 3, ../../sass/modules/_general_mixins.scss */
+.pill-red a {
+  color: white;
+}
+/* line 5, ../../sass/modules/_general_mixins.scss */
+.pill-red a:hover, .pill-red a:focus {
+  color: #d9d9d9;
+}
+
+/* line 41, ../../sass/partials/general/_pills.scss */
+.pill-blue {
+  background-color: #1000c2;
+  color: white;
+}
+/* line 3, ../../sass/modules/_general_mixins.scss */
+.pill-blue a {
+  color: white;
+}
+/* line 5, ../../sass/modules/_general_mixins.scss */
+.pill-blue a:hover, .pill-blue a:focus {
+  color: #d9d9d9;
+}
+
+/* line 47, ../../sass/partials/general/_pills.scss */
+.pill-yellow {
+  background-color: #f0ca24;
+}
+
+/* line 51, ../../sass/partials/general/_pills.scss */
+.pill-green {
+  background-color: #32ae58;
+  color: white;
+}
+/* line 3, ../../sass/modules/_general_mixins.scss */
+.pill-green a {
+  color: white;
+}
+/* line 5, ../../sass/modules/_general_mixins.scss */
+.pill-green a:hover, .pill-green a:focus {
+  color: #d9d9d9;
+}
+
+/* line 57, ../../sass/partials/general/_pills.scss */
+.pill-black {
+  background-color: #1a1a1a;
+  color: white;
+}
+/* line 3, ../../sass/modules/_general_mixins.scss */
+.pill-black a {
+  color: white;
+}
+/* line 5, ../../sass/modules/_general_mixins.scss */
+.pill-black a:hover, .pill-black a:focus {
+  color: #d9d9d9;
+}
+
+/* line 63, ../../sass/partials/general/_pills.scss */
+.pill-white {
+  background-color: white;
+}
+
+/* line 67, ../../sass/partials/general/_pills.scss */
+.pill-brown {
+  background-color: #a6673f;
+  color: white;
+}
+/* line 3, ../../sass/modules/_general_mixins.scss */
+.pill-brown a {
+  color: white;
+}
+/* line 5, ../../sass/modules/_general_mixins.scss */
+.pill-brown a:hover, .pill-brown a:focus {
+  color: #d9d9d9;
+}
+
+/* line 73, ../../sass/partials/general/_pills.scss */
+.pill-beige {
+  background-color: #f0efc7;
+}
+
+/* line 77, ../../sass/partials/general/_pills.scss */
+.pill-orange {
+  background-color: #f6aa28;
+  color: white;
+}
+/* line 3, ../../sass/modules/_general_mixins.scss */
+.pill-orange a {
+  color: white;
+}
+/* line 5, ../../sass/modules/_general_mixins.scss */
+.pill-orange a:hover, .pill-orange a:focus {
+  color: #d9d9d9;
+}
+
+/* line 83, ../../sass/partials/general/_pills.scss */
+.pill-grey {
+  background-color: #e6e6e6;
+}
+
+/* line 87, ../../sass/partials/general/_pills.scss */
+.pill-purple {
+  background-color: #c348ef;
+  color: white;
+}
+/* line 3, ../../sass/modules/_general_mixins.scss */
+.pill-purple a {
+  color: white;
+}
+/* line 5, ../../sass/modules/_general_mixins.scss */
+.pill-purple a:hover, .pill-purple a:focus {
+  color: #d9d9d9;
+}
+
+/* line 93, ../../sass/partials/general/_pills.scss */
+.pill-pink {
+  background-color: #f485c8;
+}

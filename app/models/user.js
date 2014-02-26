@@ -69,15 +69,18 @@ var UserSchema = new Schema({
         },
         loc: {
             type: [Number], //longitude, latitude
-            validate: [function(val){
+            validate: [function (val) {
                 //array is instantiated but is not required so need to allow length = 0 case.
                 return val.length === 0 || val.length === 2;
             }, validateMsg('must be an array of length 2')]
 
         },
-        tags: [
-            {type: String, lowercase: true, trim: true}
-        ],
+        tags: {
+            type: [ {type: String, lowercase: true, trim: true} ],
+            validate: [function (val) {
+                return val.length <= 10;
+            }, validateMsg('can have at most 10 elements')]
+        },
         meta: {
             updated_at: Date,
             created_at: Date

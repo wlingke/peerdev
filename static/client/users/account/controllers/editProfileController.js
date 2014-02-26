@@ -43,11 +43,26 @@ app.controller('editProfileTagsController', function($scope){
     $scope.newTag = '';
     $scope.addTag = function(){
         if(!!$scope.newTag){
-            var newTag = $scope.newTag.toLowerCase().replace(/[^a-z0-9- ]/gi, '');
-
-
+            var newTag = $scope.newTag.toLowerCase().replace(/[^a-z0-9- ]/gi, '').slice(0,20);
+            if($scope.profile.data.tags.length < $scope.maxTags && $scope.profile.data.tags.indexOf(newTag) === -1){
+                $scope.profile.data.tags.push(newTag);
+            }
+            $scope.newTag = '';
         }
+    };
 
+    $scope.removeTag = function(index){
+        $scope.profile.data.tags.splice(index,1);
+    };
+
+    $scope.tagEnter = function(e){
+        if (e.which !== 13) {
+            return true;
+        }
+        else {
+            e.preventDefault();
+            $scope.addTag();
+            return false;
+        }
     }
-
-})
+});
