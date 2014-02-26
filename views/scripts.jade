@@ -2,10 +2,12 @@
 - var vendor = static + '/vendor'
 - var client = static + '/client'
 
+//vendir
 script(src = vendor + "/cdn/jquery-1.10.2.js")
 script(src = vendor + "/cdn/angular.js")
 script(src = vendor + "/cdn/angular-sanitize.js")
 script(src = vendor + "/angular-ui-router.js")
+script(src = vendor + "/elastic.js")
 script(src = vendor + "/ui-bootstrap-tpls-0.10.0.js")
 
 //Module, config & states
@@ -26,6 +28,7 @@ script(src = client + "/general/services/Initialize.js")
 script(src = client + "/general/services/RouteCheck.js")
 script(src = client + "/general/services/GeneralCategories.js")
 script(src = client + "/general/services/Lookup.js")
+script(src = client + "/general/services/GoogleMaps.js")
 
 //Modals
 script(src = client + "/modals/services/GeneralModals.js")
@@ -34,5 +37,16 @@ script(src = client + "/modals/services/GeneralModals.js")
 script(src = client + "/users/account/controllers/createAccountController.js")
 script(src = client + "/users/account/controllers/editProfileController.js")
 script(src = client + "/users/models/User.js")
+
+//google maps
+script.
+    (function loadScript() {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
+          'callback=angular.noop';
+      document.body.appendChild(script);
+    })()
+
 
 
