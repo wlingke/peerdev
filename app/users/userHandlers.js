@@ -105,4 +105,28 @@ module.exports.currentUser = function (req, res, next) {
 module.exports.logout = function (req, res, next) {
     req.session.destroy();
     res.send(204);
-}
+};
+
+module.exports.loggedIn= function(req,res,next){
+    if(!req.session || !req.session.profile){
+        res.send(401, "Must be logged in")
+    }else {
+        next();
+    }
+};
+
+module.exports.notLoggedIn = function(req,res,next){
+    if(req.session && req.session.profile){
+        res.send(401, "Must not be logged in")
+    }else {
+        next();
+    }
+};
+
+module.exports.restrictToSelf = function(req,res,next){
+    if(!req.session || !req.session.profile || (req.params.id !== req.session.profile._id)){
+        res.send(401, "Unauthorized");
+    }else {
+        next();
+    }
+};
