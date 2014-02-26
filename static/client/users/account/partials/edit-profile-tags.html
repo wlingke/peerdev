@@ -1,0 +1,36 @@
+<div ng-controller="editProfileTagsController">
+    <div class="form-group">
+        <label class="control-label">Tags</label>
+
+        <div class="input-group">
+            <input type="text" name="tag" class="form-control" ng-model="newTag"
+                   ng-keypress="tagEnter()" maxlength="30" ng-disabled="profile.data.tags.length === maxTags">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success" ng-click="addTag()"
+                            ng-disabled="profile.data.tags.length === maxTags">Tag
+                    </button>
+                </span>
+        </div>
+        <p class="rv-help-block text-danger" ng-show="profile.data.tags.length === maxTags">You've reached the maximum
+            number of tags!</p>
+    </div>
+
+    <div class="form-group" ng-hide="!profile.data.tags.length">
+        <label class="control-label col-lg-3">My Tags
+            <p class="clear-mar-bottom">
+                <small>Tags Remaining: {{ maxTags - profile.data.tags.length }}</small>
+            </p>
+        </label>
+
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-lg-12 container-pills">
+                    <div class="pill pill-default" ng-repeat="tag in model.data.tags">
+                        <span class="pill-text">{{ tag.title }}</span>
+                        <a href="" ng-click="removeTag($index)"><i class="fa fa-minus-circle"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

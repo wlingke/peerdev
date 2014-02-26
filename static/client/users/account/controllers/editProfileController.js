@@ -36,5 +36,18 @@ app.controller('editProfileController', function ($scope, $rootScope, GeneralCat
 
         saveProfile(hasChanged('city') && hasChanged('state'));
     }
+});
+
+app.controller('editProfileTagsController', function($scope){
+    $scope.maxTags = 10;
+    $scope.newTag = '';
+    $scope.addTag = function(){
+        if(!!$scope.newTag){
+            var newTag = $scope.newTag.toLowerCase().replace(/[^a-z0-9- ]/gi, '');
+
+
+        }
+
+    }
+
 })
-;
