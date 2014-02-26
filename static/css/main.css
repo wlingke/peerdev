@@ -100,8 +100,9 @@ body {
   padding-right: 12px;
   float: right;
   position: relative;
+  height: 32px;
 }
-/* line 63, ../../sass/partials/navigation/_navbar.scss */
+/* line 64, ../../sass/partials/navigation/_navbar.scss */
 .avatar-nav-container .name .name-crop {
   max-width: 200px;
   float: left;
@@ -109,7 +110,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 68, ../../sass/partials/navigation/_navbar.scss */
+/* line 69, ../../sass/partials/navigation/_navbar.scss */
 .avatar-nav-container .name .fa {
   position: absolute;
   margin-top: -7px;
@@ -358,8 +359,8 @@ a:hover, a:focus {
 
 /* line 34, ../../sass/modules/_general_mixins.scss */
 .callout-box-primary {
-  background-color: #c3daee;
-  border-color: #b0cee9;
+  background-color: #e5eff8;
+  border-color: #d1e3f2;
 }
 
 /* line 34, ../../sass/modules/_general_mixins.scss */

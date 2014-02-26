@@ -14,7 +14,7 @@
 
 
 @include callout-box-gen(default, rgb(150,150,150));
-@include callout-box-gen(primary, $blue);
+@include callout-box-gen(primary, lighten($blue, 8.5%));
 @include callout-box-gen(danger, $red);
 @include callout-box-gen(warning, $orange);
 @include callout-box-gen(success, lighten($green,7.5%));

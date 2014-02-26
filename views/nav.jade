@@ -5,10 +5,10 @@
             if session.profile
                 li.dropdown.avatar-nav-container
                     a.dropdown-toggle
-                        img.avatar-nav(src='')
+                        img.avatar-nav(gravatar-src= "current_user.get('email')")
                         div.name
-                            span.name-crop= session.profile.data.name
-                                i.fa.fa-caret-down
+                            span.name-crop(ng-bind= "current_user.get('name')")
+                            i.fa.fa-caret-down
                     ul.dropdown-menu.dropdown-menu-right
                         li
                             a(ui-sref='profile') My Account

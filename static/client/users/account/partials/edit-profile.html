@@ -19,6 +19,10 @@
             <label class="control-label">Email</label>
             <input type="email" class="form-control" ng-model="profile.data.email" placeholder="Email"
                    ng-maxlength="255" required rv-inline-validate submit-callback="emailError" rv-email>
+            <div class="callout-box callout-box-primary">
+                <p><strong>Tip: </strong>Your profile image is the Gravatar associated with this email address.
+                <a href="http://www.gravatar.com" target="_blank">Learn more.</a></p>
+            </div>
         </div>
 
         <div class="form-group">
