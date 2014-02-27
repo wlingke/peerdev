@@ -106,6 +106,7 @@ RVStatus.directive('rvLoadStatusOn', function () {
     };
 });
 
+
 /**
  * Converts a button to automtically disable button and show working status message based on an rvStatus object.
  *
@@ -113,7 +114,11 @@ RVStatus.directive('rvLoadStatusOn', function () {
  * @param rvStatusBtn - rvStatus Object (it's technically optional but if you don't specify this, nothing will happen)
  *
  * Optional Input:
- * @param btnTextBind - allows for binding to the button text. Otherwise the actual express {{ bind }} gets put into text
+ * @param btnTextBind - expression when evaluated returns the default button text. Allows for binding of the text. Otherwise the actual expression {{ bind }} gets put into text.
+ * NOTE: This only allows you to input an expression to evaluate into text. This does NOT provide reliable 2-way binding of button text because button will not know when the
+ * input variable changes (ie no watch expression on this variable is generated).
+ *
+ * @param rvDisabled - use this instead of ngDisabled. Same usage pattern.
  *
  * Usage
  * ------------
@@ -127,28 +132,28 @@ RVStatus.directive('rvLoadStatusOn', function () {
  *  save().then(function(){
  *      $scope.saveStatus.reset();
  *  })
-
  * }
  *
  */
-
 RVStatus.directive('rvStatusBtn', function (StatusService) {
     return {
-        scope: {
-            rvStatus: '=?rvStatusBtn',
-            btnTextBind: '=?'
-        },
         link: function (scope, elem, attr) {
             var defaultText = elem.text();
 
-            var btnHtml = '<i class="fa fa-spinner fa-spin ie8n9-hide fa-fw"></i>';
-            scope.$watch('rvStatus.isWorking', function (value) {
-                if (value) {
-                    elem.html(btnHtml + scope.rvStatus.msg);
-                    attr.$set('disabled', true);
-                } else {
-                    elem.html(scope.btnTextBind || defaultText);
-                    attr.$set('disabled', false);
+            var statusWorking = attr.rvStatusBtn + '.isWorking';
+            var watchExp = !!attr.rvDisabled ? statusWorking + " || " + attr.rvDisabled : statusWorking;
+
+            var btnHtml = '<i class="fa fa-spinner fa-spin ie8n9-hide fa-fw"></i> ';
+
+            scope.$watch(watchExp, function (value) {
+                attr.$set('disabled', value);
+            });
+
+            scope.$watch(statusWorking, function (value) {
+                if (value)
+                    elem.html(btnHtml + scope.$eval(attr.rvStatusBtn)['msg']);
+                else {
+                    elem.html(scope.$eval(attr.btnTextBind) || defaultText);
                 }
             });
 

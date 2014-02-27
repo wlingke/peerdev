@@ -51,7 +51,7 @@ var UserSchema = new Schema({
         website: {
             type: String,
             validate: [function (val) {
-                return validator.isURL(val, {protocols: ['http', 'https']})
+                return validator.isURL(val, {protocols: ['http', 'https'], require_protocol: true})
             }, validateMsg('must be a URL with protocol http or https')]
         },
 
