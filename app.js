@@ -9,7 +9,7 @@ var express = require('express'),
     path = require('path'),
     passport = require('passport'),
     mongoose = require('mongoose'),
-    config = require('./app/config/config'),
+    config = require('app/config/config'),
     Mongostore = require('connect-mongo')(express)
 
 var app = express();
@@ -42,12 +42,13 @@ app.use(function(req,res,next){
 /**
  * Models
  */
-require('./app/models/user');
+require('app/models/user');
+require('app/models/project');
 
 /**
  * Passport
  */
-require('./app/config/passport')(passport);
+require('app/config/passport')(passport);
 
 
 /**
@@ -55,8 +56,9 @@ require('./app/config/passport')(passport);
  */
 app.use('/static', express.static('static'));
 app.use(app.router);
-require('./app/users/usersAPI')(app, passport);
-require('./app/general/routes')(app);
+require('app/users/usersAPI')(app, passport);
+require('app/projects/projectsAPI')(app);
+require('app/general/routes')(app);
 
 // development only
 if ('development' === app.get('env')) {

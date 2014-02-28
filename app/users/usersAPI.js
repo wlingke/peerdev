@@ -1,7 +1,6 @@
 'use strict';
 
-var userHandlers = require('./userHandlers'),
-    model = require('mongoose').model('User');
+var userHandlers = require('./userHandlers');
 
 module.exports = function (app, passport) {
 

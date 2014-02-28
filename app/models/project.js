@@ -83,6 +83,13 @@ var ProjectSchema = new Schema({
             created_at: Date
         },
         model_type: String
+    },
+    relations: {
+        owner: {
+            type: Schema.ObjectId,
+            ref: 'User',
+            required: true
+        }
     }
 });
 
