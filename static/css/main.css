@@ -699,3 +699,8 @@ a:hover, a:focus {
 .pill-pink {
   background-color: #f485c8;
 }
+
+/* line 1, ../../sass/partials/general/_dividers.scss */
+.divider-dark {
+  border-top-color: #969696;
+}

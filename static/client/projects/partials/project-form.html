@@ -1,0 +1,83 @@
+<div class="form-group">
+    <label class="control-label">Title</label>
+    <input type="text" class="form-control" ng-model="project.data.title" placeholder="Project Title"
+           ng-maxlength="200" required rv-inline-validate>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Description</label>
+    <textarea rows="5" class="form-control" ng-model="project.data.description"
+              placeholder="What is your project? What is your technology and who are on your team? What kind of skills are you looking for in a contributor?"
+              ng-maxlength="5000" rv-inline-validate char-left="onFocus" msd-elastic required>
+    </textarea>
+
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="project.data.is_paid"> This is a paid position
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Contact Email</label>
+    <input type="email" class="form-control" ng-model="project.data.email" placeholder="Email"
+           ng-maxlength="255" required rv-inline-validate rv-email>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Website</label>
+    <input type="text" class="form-control" ng-model="project.data.website" placeholder="Website, github, etc."
+           ng-maxlength="255" rv-inline-validate url-validate>
+</div>
+
+<div class="form-group">
+    <a rv-link-switch="hide_add_info" switch-text="Hide Additional Fields">Show Additional Fields</a>
+</div>
+
+<hr class="divider-dark">
+
+<div collapse="hide_add_info">
+    <div class="form-group">
+        <label class="control-label">Why Join Us</label>
+        <textarea rows="5" class="form-control" ng-model="project.data.why_join"
+                  placeholder="Why should someone join your project and what will they get out of it? If this is a paid position, what is the compensation?"
+                  ng-maxlength="2500" rv-inline-validate char-left="onFocus" msd-elastic>
+        </textarea>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Location</label>
+
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" ng-model="project.data.city" placeholder="City or Town"
+                       ng-maxlength="50" rv-inline-validate>
+            </div>
+            <div class="col-md-6">
+                <select class="form-control" ng-model="project.data.state"
+                        ng-options="state.value as state.title for state in states">
+                    <option value="">Select a state</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Where will contributors work from?</label>
+        <select class="form-control" ng-model="project.data.work_from">
+            <option value="">Select an option</option>
+            <option value="remotely">Remotely</option>
+            <option value="on-site">On-site</option>
+            <option value="flexible">Flexible</option>
+        </select>
+    </div>
+
+    <div pd-tags="project.data.tags"></div>
+
+    <hr class="divider-dark">
+</div>
+
+<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="save()" rv-status-btn="save_status">
+    Save Project
+</button>
+<div rv-status="save_status" src-type="error" style="margin-top: 10px;"></div>

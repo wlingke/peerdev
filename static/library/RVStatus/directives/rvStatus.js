@@ -135,7 +135,7 @@ RVStatus.directive('rvLoadStatusOn', function () {
  * }
  *
  */
-RVStatus.directive('rvStatusBtn', function (StatusService) {
+RVStatus.directive('rvStatusBtn', function () {
     return {
         link: function (scope, elem, attr) {
             var defaultText = elem.text();

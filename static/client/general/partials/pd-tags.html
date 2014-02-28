@@ -1,0 +1,24 @@
+<div class="form-group">
+    <label class="control-label">{{ label }}
+        <small>(Remaining: {{ maxTags - tags.length }})</small>
+    </label>
+
+    <div class="input-group">
+        <input type="text" name="tag" class="form-control" ng-model="newTag"
+               ng-keypress="tagEnter($event)" maxlength="20" ng-disabled="tags.length === maxTags">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success" ng-click="addTag()"
+                            ng-disabled="tags.length === maxTags">Add
+                    </button>
+                </span>
+    </div>
+    <p class="rv-help-block text-danger" ng-show="tags.length === maxTags">You've reached the maximum
+        number of tags!</p>
+</div>
+
+<div ng-hide="!tags.length" class="container-pills">
+    <div class="pill pill-white" ng-repeat="tag in tags">
+        <span class="pill-text">{{ tag }}</span>
+        <a href="" ng-click="removeTag($index)"><i class="fa fa-minus-circle"></i></a>
+    </div>
+</div>

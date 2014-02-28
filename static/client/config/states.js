@@ -20,6 +20,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
+        .state('new_project', {
+            url: '/create-project',
+            templateUrl: '/static/client/projects/partials/create-project.html',
+            controller: 'createProjectController',
+            resolve:{
+                routeCheck: ["RouteCheck", function (RouteCheck) {
+                    return RouteCheck.loggedIn();
+                }]
+            }
+        })
 
         //route errors
         .state('route_error', {

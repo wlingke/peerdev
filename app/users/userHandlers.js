@@ -31,13 +31,6 @@ var userAuth = function (req, res, next, user, authType) {
     });
 };
 
-var setUserId = function (username) {
-    if (typeof username === 'string') {
-        return username.replace('.', '');
-    }
-    return '';
-}
-
 module.exports.create = function (req, res, next) {
     var cookie = req.signedCookies.auth;
     var newUser = {
@@ -50,7 +43,7 @@ module.exports.create = function (req, res, next) {
     };
     _.assign(newUser.data, req.body);
 
-    newUser.data.userId = setUserId(newUser.data.username);
+    newUser.data.userId = newUser.data.username;
 
     var user = new User(newUser);
     user.save(function (err) {
@@ -72,7 +65,7 @@ module.exports.save = function (req, res, next) {
             return res.send(400, err);
         }
         _.assign(model.data, req.body);
-        model.data.userId = setUserId(model.data.username);
+        model.data.userId = model.data.username;
 
         model.save(function (err) {
             if (err) {
