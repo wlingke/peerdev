@@ -9,12 +9,12 @@ app.factory('Utilities', function () {
      */
     var ensureUrlProtocol = function (url) {
         var str = angular.copy(url);
-        if (str.indexOf('http://') === -1 && str.indexOf('https://') === -1) {
-            str = "http://" + str.trim();
+        if (!!url && angular.isString(url) && str.indexOf('http://') === -1 && str.indexOf('https://') === -1) {
+            return "http://" + str.trim();
         }
-        return str;
+        return '';
     };
-    
+
     return {
         ensureUrlProtocol: ensureUrlProtocol
     };

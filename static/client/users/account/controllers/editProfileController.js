@@ -1,4 +1,4 @@
-app.controller('editProfileController', function ($scope, $rootScope, GeneralCategories, StatusService, RVValidate, UniversalAlertService, Initialize, $q, GoogleMaps) {
+app.controller('editProfileController', function ($scope, $rootScope, GeneralCategories, StatusService, RVValidate, UniversalAlertService, Initialize, $q) {
     $scope.profile = angular.copy($rootScope.current_user);
     $scope.states = GeneralCategories.states;
     $scope.save_status = StatusService.createSaveStatus();
