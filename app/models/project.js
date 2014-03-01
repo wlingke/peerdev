@@ -35,7 +35,8 @@ var ProjectSchema = new Schema({
         website: {
             type: String,
             validate: [function (val) {
-                return validator.isURL(val, {protocols: ['http', 'https'], require_protocol: true})
+                //added length validator to allow for empty
+                return validator.isURL(val, {protocols: ['http', 'https'], require_protocol: true}) || validator.isLength(val, 0,0)
             }, validateMsg('must be a URL with protocol http or https')]
         },
         why_join: {
@@ -103,5 +104,15 @@ ProjectSchema.pre('save', function (next) {
     }
     next();
 });
+
+ProjectSchema.methods.matchesOwnerId = function(id){
+    if(this.relations && this.relations.owner){
+        return this.relations.owner._id.equals(id);
+    }else {
+        console.log('Relations.owner has not been populated');
+        return false
+    }
+
+};
 
 var model = mongoose.model('Project', ProjectSchema);

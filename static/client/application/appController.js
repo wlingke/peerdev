@@ -8,4 +8,6 @@ app.controller('appController', function ($scope, GeneralModals, $http, $window)
             $window.location.pathname = '/';
         })
     }
+
+    window.http = $http;
 });

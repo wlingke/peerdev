@@ -5,10 +5,13 @@ var userHandlers = require('app/users/userHandlers');
 
 module.exports = function (app) {
 
-    app.post('/api/projects', userHandlers.loggedIn, projectHandlers.create);
-    app.get('/api/projects/:id');
+    var canModify = [userHandlers.loggedIn, projectHandlers.getProjectById,
+        projectHandlers.isProjectOwner];
 
-    app.post('/api/projects/:id');
-    app.del('/api/projects/:id');
+    app.post('/api/projects', userHandlers.loggedIn, projectHandlers.create);
+    app.post('/api/projects/:id', canModify , projectHandlers.save);
+
+    app.get('/api/projects/:id');
+    app.del('/api/projects/:id', canModify , projectHandlers.del);
 
 };
