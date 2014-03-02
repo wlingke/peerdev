@@ -68,3 +68,12 @@ module.exports.del = function(req,res,next){
         res.send(204);
     })
 };
+
+module.exports.send = function(req,res,next){
+    if(req.project){
+        res.send(200, req.project);
+    }else {
+        res.send(404);
+    }
+
+}

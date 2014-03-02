@@ -24,6 +24,14 @@ app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities) {
         return this.data.city && this.data.state;
     };
 
+    Project.prototype.getOwner = function(){
+        return this.getFirstRelation('owner');
+    };
+
+    Project.prototype.getOwnerId = function(){
+        return this.getFirstRelationId('owner');
+    };
+
     Project.prototype.save = function (data, setLocation) {
         var self = this;
 

@@ -3,10 +3,10 @@ app.factory('RouteCheck', function ($rootScope, Initialize, $q, $log) {
     /**
      *
      * @param runFnc - must be one of the predefined run functions below
-     * @param options - object
+     * @param data - object
      * @returns {IPromise<T>}
      */
-    var routeChecker = function (runFnc, options) {
+    var routeChecker = function (runFnc, data) {
         var deferred = $q.defer();
         var run = function () {
             if (typeof runFnc === 'function') {

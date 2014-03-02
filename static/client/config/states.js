@@ -10,11 +10,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'createAccountController'
         })
 
-        .state('profile',{
+        .state('profile', {
             url: '/profile',
             templateUrl: '/static/client/users/account/partials/edit-profile.html',
             controller: 'editProfileController',
-            resolve:{
+            resolve: {
                 routeCheck: ["RouteCheck", function (RouteCheck) {
                     return RouteCheck.loggedIn();
                 }]
@@ -24,10 +24,35 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/create-project',
             templateUrl: '/static/client/projects/partials/create-project.html',
             controller: 'createProjectController',
-            resolve:{
+            resolve: {
                 routeCheck: ["RouteCheck", function (RouteCheck) {
                     return RouteCheck.loggedIn();
                 }]
+            }
+        })
+        .state('edit_project', {
+            url: '/edit-project/:id',
+            resolve: {
+                project: ["$http", "$stateParams", "$q", "$rootScope", "Project", function($http, $stateParams, $q, $rootScope, Project){
+                    var deferred = $q.defer();
+
+                    $http.get('/api/projects/' + $stateParams.id)
+                        .success(function(data){
+                            var project = Project.init(data);
+                            if($rootScope.current_user && project.getOwnerId() === $rootScope.current_user.getId()){
+                                deferred.resolve(project);
+                            }else {
+                                deferred.reject({type: 'redirect', state: 'route_error.default'});
+                            }
+
+                        })
+                        .error(function(){
+                            deferred.reject({type: 'redirect', state: 'route_error.default'});
+                        });
+
+                    return deferred.promise;
+                }]
+
             }
         })
 

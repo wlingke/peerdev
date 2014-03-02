@@ -7,7 +7,5 @@ app.controller('appController', function ($scope, GeneralModals, $http, $window)
         $http.post('/api/logout').success(function () {
             $window.location.pathname = '/';
         })
-    }
-
-    window.http = $http;
+    };
 });

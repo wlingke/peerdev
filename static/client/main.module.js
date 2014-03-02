@@ -11,7 +11,7 @@ var app = angular.module('peerdev', [
         Initialize.getCurrentUser();
         Initialize.models();
         ModelRelations.registerModels({
-            user: User
+            user: User.getModel()
         });
 
         $rootScope.$on('$stateChangeError', function (e, to, toParams, from, fromParams, error) {

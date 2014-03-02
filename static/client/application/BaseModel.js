@@ -28,18 +28,38 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
     BaseModel.prototype.setRelation = function (relation_name, relation_data) {
         var Model;
         this.relations[relation_name] = [];
-        if (!angular.isArray(relation_data)) {
-            throw 'Relation data must be an array'
-        }
-        if (!relation_data[0].hasOwnProperty(data)) {
-            throw 'Relation missing data field'
-        }
+        var relations = this.relations[relation_name];
 
-        Model = ModelRelations.getModel(relation_data[0].data.type);
-        if (angular.isDefined(Model)) {
-            this.relations[relation_name].push(new Model(relation_data));
+        if (angular.isArray(relation_data)) {
+
+            if (!relation_data[0].hasOwnProperty('data')) {
+                return $log.error('Relation missing data field');
+            }
+            Model = ModelRelations.getModel(relation_data[0].data.model_type);
+
+            if (angular.isDefined(Model)) {
+                angular.forEach(relation_data, function (value, key) {
+                    relations.push(new Model(value));
+                })
+            } else {
+                angular.forEach(relation_data, function (value, key) {
+                    relations.push(value);
+                })
+            }
+
         } else {
-            this.relations[relation_name].push(relation_data);
+            if (!relation_data.hasOwnProperty('data')) {
+                return $log.error('Relation missing data field');
+            }
+            Model = ModelRelations.getModel(relation_data.data.model_type);
+
+            if (angular.isDefined(Model)) {
+                relations.push(new Model(relation_data));
+            } else {
+                relations.push(relation_data);
+            }
+
+
         }
     };
 
@@ -55,7 +75,7 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
     BaseModel.prototype.getRelation = function (relation_name) {
         return this.relations[relation_name] || [];
     };
-    BaseModel.prototype.getOneRelation = function (relation_name) {
+    BaseModel.prototype.getFirstRelation = function (relation_name) {
         return this.getRelation(relation_name)[0];
     };
     BaseModel.prototype.getUrl = function () {
@@ -77,10 +97,10 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
             url: this.getUrl() + "/" + this.getId(),
             data: data
         })
-            .success(function(data){
+            .success(function (data) {
                 deferred.resolve(data);
             })
-            .error(function(err){
+            .error(function (err) {
                 $log.error(err)
                 deferred.reject(err)
             });
@@ -97,15 +117,24 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
             url: this.getUrl(),
             data: self.data
         })
-            .success(function(data){
+            .success(function (data) {
                 self.id = data.id;
                 deferred.resolve(data);
             })
-            .error(function(err){
+            .error(function (err) {
                 $log.error(err);
                 deferred.reject(err)
             });
         return deferred.promise
+    };
+
+    BaseModel.prototype.getFirstRelationId = function (relation_name) {
+        var relation = this.getFirstRelation(relation_name)
+        if (relation) {
+            return relation.getId();
+        } else {
+            return null;
+        }
     };
 
     BaseModel.inherit = function (subType) {

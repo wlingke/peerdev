@@ -9,9 +9,9 @@ module.exports = function (app) {
         projectHandlers.isProjectOwner];
 
     app.post('/api/projects', userHandlers.loggedIn, projectHandlers.create);
-    app.post('/api/projects/:id', canModify , projectHandlers.save);
+    app.post('/api/projects/:id', canModify, projectHandlers.save);
 
-    app.get('/api/projects/:id');
-    app.del('/api/projects/:id', canModify , projectHandlers.del);
+    app.get('/api/projects/:id', projectHandlers.getProjectById, projectHandlers.send);
+    app.del('/api/projects/:id', canModify, projectHandlers.del);
 
 };
