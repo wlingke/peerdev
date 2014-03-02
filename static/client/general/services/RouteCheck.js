@@ -10,7 +10,7 @@ app.factory('RouteCheck', function ($rootScope, Initialize, $q, $log) {
         var deferred = $q.defer();
         var run = function () {
             if (typeof runFnc === 'function') {
-                runFnc(deferred, options);
+                runFnc(deferred, data);
             }
         };
 

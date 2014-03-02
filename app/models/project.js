@@ -25,13 +25,6 @@ var ProjectSchema = new Schema({
                 return validator.isLength(val, 0, 6000);
             }, validateMsg('length cannot exceed 6000')]
         },
-        email: {
-            type: String,
-            required: true,
-            validate: [function (val) {
-                return validator.isEmail(val) && validator.isLength(val, 0, 255);
-            }, validateMsg('must be an email with length less than 255')]
-        },
         website: {
             type: String,
             validate: [function (val) {

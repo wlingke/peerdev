@@ -32,6 +32,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('edit_project', {
             url: '/edit-project/:id',
+            controller: 'editProjectController',
+            templateUrl: '/static/client/projects/partials/edit-project.html',
             resolve: {
                 project: ["$http", "$stateParams", "$q", "$rootScope", "Project", function($http, $stateParams, $q, $rootScope, Project){
                     var deferred = $q.defer();
@@ -44,7 +46,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                             }else {
                                 deferred.reject({type: 'redirect', state: 'route_error.default'});
                             }
-
                         })
                         .error(function(){
                             deferred.reject({type: 'redirect', state: 'route_error.default'});

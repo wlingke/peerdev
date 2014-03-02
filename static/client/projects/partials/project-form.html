@@ -18,18 +18,12 @@
 </div>
 
 <div class="form-group">
-    <label class="control-label">Contact Email</label>
-    <input type="email" class="form-control" ng-model="project.data.email" placeholder="Email"
-           ng-maxlength="255" required rv-inline-validate rv-email>
-</div>
-
-<div class="form-group">
     <label class="control-label">Website</label>
-    <input type="text" class="form-control" ng-model="project.data.website" placeholder="Website, github, etc."
+    <input type="text" class="form-control" ng-model="project.data.website" placeholder="Website or repo URL"
            ng-maxlength="255" rv-inline-validate url-validate>
 </div>
 
-<div class="form-group">
+<div class="form-group" ng-if="!hide_add_info_switch">
     <a rv-link-switch="hide_add_info" switch-text="Hide Additional Fields">Show Additional Fields</a>
 </div>
 
