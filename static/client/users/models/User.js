@@ -1,4 +1,4 @@
-app.factory('User', function (BaseModel, GoogleMaps, $q, Utilities) {
+app.factory('User', function (BaseModel, GoogleMaps, $q, Utilities, APIQuery) {
     function User(json) {
         BaseModel.getModel().call(this, json)
         this.url = User.url;
@@ -7,6 +7,10 @@ app.factory('User', function (BaseModel, GoogleMaps, $q, Utilities) {
     BaseModel.inherit(User);
 
     User.url = '/api/users';
+
+    User.query = function(type){
+        return APIQuery.init(User, User.url, type)
+    }
 
     /**
      *
@@ -50,12 +54,27 @@ app.factory('User', function (BaseModel, GoogleMaps, $q, Utilities) {
         })
     };
 
+
     return {
         getModel: function () {
             return User;
         },
         init: function (json) {
             return new User(json);
+        },
+        query: function(type){
+            return User.query(type)
+        },
+
+        //convenience methods
+        find: function(){
+            return User.query('find')
+        },
+        findOne: function(){
+            return User.query('findOne')
+        },
+        findById: function(){
+            return User.query('findById')
         }
     }
 });

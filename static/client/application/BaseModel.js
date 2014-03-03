@@ -11,8 +11,8 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
 
     BaseModel.prototype.setData = function (json) {
         json = json || {
-            relations: {},
             data: {},
+            relations: {}
         };
         this.data = json.data;
         this.id = json._id;

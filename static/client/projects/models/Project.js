@@ -1,4 +1,4 @@
-app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities) {
+app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities, APIQuery) {
     function Project(json) {
         BaseModel.getModel().call(this, json)
         this.url = Project.url;
@@ -7,7 +7,9 @@ app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities) {
     BaseModel.inherit(Project);
 
     Project.url = '/api/projects';
-
+    Project.query = function(type){
+        return APIQuery.init(Project, Project.url, type)
+    };
     /**
      *
      * @param coord with properties latitude and longitude
@@ -64,6 +66,23 @@ app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities) {
         },
         init: function (json) {
             return new Project(json);
+        },
+        query: function(type){
+            return Project.query(type)
+        },
+
+        //convenience methods
+        find: function(){
+            return Project.query('find')
+        },
+        findOne: function(){
+            return Project.query('findOne')
+        },
+        findById: function(){
+            return Project.query('findById')
+        },
+        count: function(){
+            return Project.query('count')
         }
     }
 });
