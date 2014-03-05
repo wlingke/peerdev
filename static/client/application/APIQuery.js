@@ -56,9 +56,10 @@ app.factory('APIQuery', function ($http, $q, $log) {
         }
 
         this.Model = Model;
-        this.type = query_type;
         this.url = url;
-        this.params = {};
+        this.params = {
+            type: query_type
+        };
     }
 
     /**
@@ -70,7 +71,7 @@ app.factory('APIQuery', function ($http, $q, $log) {
      *      count: Object
      */
     APIQuery.prototype.conditions = function (conditions) {
-        if (this.type === 'findById' && !!angular.isString(conditions)) {
+        if (this.params.type === 'findById' && !!angular.isString(conditions)) {
             $log.error('findById only takes a string conditions argument')
             return this;
         }
@@ -97,6 +98,8 @@ app.factory('APIQuery', function ($http, $q, $log) {
      * Applies a numerical comparison filter
      * @param comparisons accepts string or array of strings in the form of: 'path>value' with the path name on the left and value on the right
      * separated by an operator: >, <, >=, <=
+     *
+     * Note, you can only use up to 10 of these.
      */
     APIQuery.prototype.compare = function (comparisons) {
         this._compare = this._compare || [];
@@ -128,6 +131,8 @@ app.factory('APIQuery', function ($http, $q, $log) {
      * Populates a relation. Specify this multiple times to add multiple relations.
      * query.populate('user').populate('article', 'author').exec();
      *
+     * NOTE: only allows max of 5 populates
+     *
      * @param path (string) - required
      * @param select (string) - optional
      */
@@ -145,8 +150,12 @@ app.factory('APIQuery', function ($http, $q, $log) {
 
     APIQuery.prototype.exec = function () {
         //build compare & populate strings
-        this.params.compare = this._compare.join('+');
-        this.params.populate = this._populate.join('+');
+        if(angular.isArray(this._compare)){
+            this.params.compare = this._compare.slice(0,10).join('+');
+        }
+        if(angular.isArray(this._populate)){
+            this.params.populate = this._populate.slice(0,5).join('+');
+        }
         this.params.cb = new Date().getTime();
 
         var self = this;

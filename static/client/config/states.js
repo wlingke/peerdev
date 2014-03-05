@@ -2,7 +2,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('index', {
             url: '/',
-            templateUrl: '/static/client/general/partials/index.html'
+            templateUrl: '/static/client/home/partials/index.html',
+            controller: 'indexController'
         })
         .state('create_account', {
             url: '/create-account',

@@ -1,6 +1,7 @@
 'use strict';
 
 var userHandlers = require('./userHandlers');
+var queryHandlers = require('app/query/queryHandlers');
 
 module.exports = function (app, passport) {
 
@@ -12,5 +13,7 @@ module.exports = function (app, passport) {
 
     app.get('/api/facebook', passport.authenticate('facebook'));
     app.get('/api/facebook/callback', userHandlers.facebook_auth(passport));
+
+    app.get('/api/user/test', queryHandlers.init('Project'), queryHandlers.buildQuery)
 
 };

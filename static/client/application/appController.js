@@ -1,4 +1,4 @@
-app.controller('appController', function ($scope, GeneralModals, $http, $window) {
+app.controller('appController', function ($scope, GeneralModals, $http, $window, APIQuery, User) {
     $scope.loginModal = function () {
         GeneralModals.loginModal();
     };
@@ -8,4 +8,8 @@ app.controller('appController', function ($scope, GeneralModals, $http, $window)
             $window.location.pathname = '/';
         })
     };
+
+    $window.test = function(type){
+        return APIQuery.init(User.getModel(), '/api/user/test', type);
+    }
 });
