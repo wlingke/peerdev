@@ -128,6 +128,40 @@ app.factory('APIQuery', function ($http, $q, $log) {
     };
 
     /**
+     * Skips results in the table
+     *
+     * WARNING: Do not skip too many rows (~200) or suffer performance issues.
+     * For better perf, find first item, then skip use skip rather than skipping a bunch.
+     * APIQuery does not allow more than 200 skips
+     *
+     * @param value (Number)
+     * @returns {APIQuery}
+     */
+    APIQuery.prototype.skip = function (value) {
+        if (!angular.isNumber(value)) {
+            $log.error('Value must be a number');
+            return this;
+        }
+        if(value > 200){
+            $log.error('Cannot skip more than 200 rows');
+            return this;
+        }
+        this.params.skip = value;
+        return this;
+    };
+
+    /**
+     * Accepts string version of mongoose parameters only
+     * @param sort
+     */
+    APIQuery.prototype.sort = function(sort){
+        if (angular.isString(sort)) {
+            this.params.sort = sort;
+        }
+        return this;
+    };
+
+    /**
      * Populates a relation. Specify this multiple times to add multiple relations.
      * query.populate('user').populate('article', 'author').exec();
      *
@@ -152,6 +186,7 @@ app.factory('APIQuery', function ($http, $q, $log) {
         //build compare & populate strings
         if(angular.isArray(this._compare)){
             this.params.compare = this._compare.slice(0,10).join('+');
+            this.params.compare.replace('\\s+', '');
         }
         if(angular.isArray(this._populate)){
             this.params.populate = this._populate.slice(0,5).join('+');

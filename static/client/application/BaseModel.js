@@ -31,9 +31,8 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
         var relations = this.relations[relation_name];
 
         if (angular.isArray(relation_data)) {
-
             if (!relation_data[0].hasOwnProperty('data')) {
-                return $log.error('Relation missing data field');
+                return $log.warn('Relation missing data field');
             }
             Model = ModelRelations.getModel(relation_data[0].data.model_type);
 
@@ -49,7 +48,7 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
 
         } else {
             if (!relation_data.hasOwnProperty('data')) {
-                return $log.error('Relation missing data field');
+                return $log.warn('Relation missing data field');
             }
             Model = ModelRelations.getModel(relation_data.data.model_type);
 
