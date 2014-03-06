@@ -21,6 +21,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
+        .state('my_projects', {
+            url: '/my-projects',
+            templateUrl: '/static/client/users/account/partials/my-projects.html',
+            controller: 'myProjectsController',
+            resolve: {
+                routeCheck: ["RouteCheck", function (RouteCheck) {
+                    return RouteCheck.loggedIn();
+                }]
+            }
+        })
         .state('new_project', {
             url: '/create-project',
             templateUrl: '/static/client/projects/partials/create-project.html',

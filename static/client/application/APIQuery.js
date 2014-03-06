@@ -212,6 +212,7 @@ app.factory('APIQuery', function ($http, $q, $log) {
                     angular.forEach(data, function (value) {
                         model_list.push(new self.Model(value))
                     });
+
                     return deferred.resolve(model_list);
                 }
 

@@ -1,6 +1,9 @@
 app.controller('createProjectController', function ($scope, StatusService, GeneralCategories, Project, RVValidate, UniversalAlertService, $state, $rootScope) {
     $scope.project = Project.init();
-    $scope.hide_add_info = true;
+    $scope.data = {
+        hide_add_info: true
+    };
+
     $scope.save_status = StatusService.createSaveStatus();
     $scope.states = GeneralCategories.states;
 

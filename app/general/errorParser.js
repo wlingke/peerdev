@@ -36,19 +36,19 @@ var checkError = function (path, type, err) {
 
 var errorCodes = {
     pd1000: {
-        check: checkError.bind(null, 'data.userId', 'unique'),
+        check: checkError.bind(null, 'userId', 'unique'),
         message: 'This username is unavailable.'
     },
 //    pd1001: {
-//        check: checkError.bind(null, 'data.userId', 'required'),
+//        check: checkError.bind(null, 'userId', 'required'),
 //        message: 'Username is required'
 //    },
     pd1100: {
-        check: checkError.bind(null, 'data.email', 'unique'),
+        check: checkError.bind(null, 'email', 'unique'),
         message: 'This email is already in use.'
     }
 //    pd1101: {
-//        check: checkError.bind(null, 'data.email', 'required'),
+//        check: checkError.bind(null, 'email', 'required'),
 //        message: 'Email is required'
 //    }
 };

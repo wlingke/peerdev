@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
     _ = require('lodash'),
     errorParser = require('app/general/errorParser');
 
+
 var userAuth = function (req, res, next, user, authType) {
     var prop;
     if (authType === 'facebook') {
@@ -16,7 +17,7 @@ var userAuth = function (req, res, next, user, authType) {
     var search = {};
     search['providers.' + prop] = user.id;
 
-    User.findOne(search, 'data', function (err, profile) {
+    User.findOne(search, '-providers', function (err, profile) {
         if (profile) {
             req.session.profile = profile;
             res.redirect('/');
@@ -37,13 +38,11 @@ module.exports.create = function (req, res, next) {
         providers: {
             facebook_id: cookie.facebook_id
         },
-        data: {
-            name: cookie.name
-        }
+        name: cookie.name
     };
-    _.assign(newUser.data, req.body);
+    _.assign(newUser, req.body);
 
-    newUser.data.userId = newUser.data.username;
+    newUser.userId = newUser.username;
 
     var user = new User(newUser);
     user.save(function (err) {
@@ -51,21 +50,18 @@ module.exports.create = function (req, res, next) {
             return errorParser.handle(req, res, next, ['pd1000', 'pd1100'], err);
         }
 
-        req.session.profile = {
-            data: user.data,
-            _id: user._id
-        };
+        req.session.profile = user;
         res.send(201);
     })
 };
 
 module.exports.save = function (req, res, next) {
-    User.findById(req.params.id, 'data', function (err, model) {
+    User.findById(req.params.id, function (err, model) {
         if (err) {
             return res.send(400, err);
         }
-        _.assign(model.data, req.body);
-        model.data.userId = model.data.username;
+        _.assign(model, req.body);
+        model.userId = model.username;
 
         model.save(function (err) {
             if (err) {
@@ -73,7 +69,7 @@ module.exports.save = function (req, res, next) {
             }
 
             req.session.profile = model;
-            res.send(200, model);
+            next();
         })
 
     })
@@ -100,26 +96,26 @@ module.exports.logout = function (req, res, next) {
     res.send(204);
 };
 
-module.exports.loggedIn= function(req,res,next){
-    if(!req.session || !req.session.profile){
+module.exports.loggedIn = function (req, res, next) {
+    if (!req.session || !req.session.profile) {
         res.send(401, "Must be logged in")
-    }else {
+    } else {
         next();
     }
 };
 
-module.exports.notLoggedIn = function(req,res,next){
-    if(req.session && req.session.profile){
+module.exports.notLoggedIn = function (req, res, next) {
+    if (req.session && req.session.profile) {
         res.send(401, "Must not be logged in")
-    }else {
+    } else {
         next();
     }
 };
 
-module.exports.restrictToSelf = function(req,res,next){
-    if(!req.session || !req.session.profile || (req.params.id !== req.session.profile._id)){
+module.exports.restrictToSelf = function (req, res, next) {
+    if (!req.session || !req.session.profile || (req.params.id !== req.session.profile._id)) {
         res.send(401, "Unauthorized");
-    }else {
+    } else {
         next();
     }
 };

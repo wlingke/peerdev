@@ -1,27 +1,34 @@
 app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
 
-    function BaseModel(json) {
+    /**
+     *
+     * @param json
+     * @param relation_names Array of strings describing relations a model may have.
+     * @constructor
+     */
+    function BaseModel(json, relation_names) {
         this.data = {};
         this.relations = {};
         this.url = BaseModel.url;
-        this.setData(json);
+        this.setData(json, relation_names);
     }
 
     BaseModel.url = '/api';
 
-    BaseModel.prototype.setData = function (json) {
-        json = json || {
-            data: {},
-            relations: {}
-        };
-        this.data = json.data;
-        this.id = json._id;
+    BaseModel.prototype.setData = function (json, relation_names) {
+        json = json || {};
+        var self = this;
 
-        for (var k in json.relations) {
-            if (json.relations.hasOwnProperty(k)) {
-                this.setRelation(k, json.relations[k]);
-            }
+        if (angular.isArray(relation_names)) {
+            angular.forEach(relation_names, function (v) {
+                if (json.hasOwnProperty(v)) {
+                    self.setRelation(v, json[v]);
+                    delete json[v];
+                }
+            })
         }
+
+        this.data = json;
 
     };
 
@@ -31,11 +38,8 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
         var relations = this.relations[relation_name];
 
         if (angular.isArray(relation_data)) {
-            if (!relation_data[0].hasOwnProperty('data')) {
-                return $log.warn('Relation missing data field');
-            }
-            Model = ModelRelations.getModel(relation_data[0].data.model_type);
 
+            Model = ModelRelations.getModel(relation_data[0].model_type);
             if (angular.isDefined(Model)) {
                 angular.forEach(relation_data, function (value, key) {
                     relations.push(new Model(value));
@@ -47,26 +51,21 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
             }
 
         } else {
-            if (!relation_data.hasOwnProperty('data')) {
-                return $log.warn('Relation missing data field');
-            }
-            Model = ModelRelations.getModel(relation_data.data.model_type);
+            Model = ModelRelations.getModel(relation_data.model_type);
 
             if (angular.isDefined(Model)) {
                 relations.push(new Model(relation_data));
             } else {
                 relations.push(relation_data);
             }
-
-
         }
     };
 
     BaseModel.prototype.getId = function () {
-        return this.id;
+        return this.data._id;
     };
     BaseModel.prototype.getType = function () {
-        return this.data.type;
+        return this.data.model_type;
     };
     BaseModel.prototype.get = function (attr_name) {
         return angular.isDefined(this.data[attr_name]) ? this.data[attr_name] : "";

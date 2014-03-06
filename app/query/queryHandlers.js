@@ -7,10 +7,6 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function normalizeDataAttr(str){
-    return str === "_id" ? str : 'data.' + str;
-}
-
 module.exports.init = function (model_type) {
 
     return function (req, res, next) {
@@ -51,31 +47,11 @@ module.exports.buildQuery = function (req, res, next) {
 
 
     var conditions = tryJSONParse(params.conditions);
-    var modified_conditions = {};
-    if (_.isObject(conditions)) {
-        var keys = Object.keys(conditions);
-        keys.forEach(function (value) {
-            var prop = normalizeDataAttr(value)
-            modified_conditions[prop] = conditions[value];
-        });
-        query = model[params.type](modified_conditions);
-    } else {
-        query = model[params.type](conditions);
-    }
+    query = model[params.type](conditions);
 
 
     if (params.select) {
-        var select = params.select.split(' ').slice(0, 25);
-        var modified_select = [];
-        select.forEach(function (value, index, self) {
-            if (value.charAt(0) === "+" || value.charAt(0) === "-") {
-                modified_select.push(value.charAt(0) + normalizeDataAttr(value.slice(1)));
-            } else {
-                modified_select.push(normalizeDataAttr(value));
-            }
-        });
-        modified_select.push('relations');
-        query.select(modified_select.join(' '));
+        query.select(params.select);
     }
 
 
@@ -101,24 +77,7 @@ module.exports.buildQuery = function (req, res, next) {
         var populate = params.populate.split('+').slice(0, 5);
         populate.forEach(function (value, index, self) {
             var arr = value.split('/');
-            var final_pop_select;
-
-            // handles select part of populate
-            if (!_.isUndefined(arr[1])) {
-                var pop_select = arr[1].split(' ').slice(0, 25);
-                var pop_modified_select = [];
-                pop_select.forEach(function (value, index, self) {
-                    if (value.charAt(0) === "+" || value.charAt(0) === "-") {
-                        pop_modified_select.push(value.charAt(0) + normalizeDataAttr(value.slice(1)));
-                    } else {
-                        pop_modified_select.push(normalizeDataAttr(value));
-                    }
-                });
-                pop_modified_select.push('relations');
-                final_pop_select = pop_modified_select.join(' ');
-            }
-
-            query.populate("relations." + arr[0], final_pop_select);
+            query.populate(arr[0], arr[1]);
         })
     }
 
@@ -144,27 +103,17 @@ module.exports.buildQuery = function (req, res, next) {
         var compare = params.compare.split('+').slice(0, 10);
         compare.forEach(function (value, index, self) {
             for (var i = 0, ii = operators.length; i < ii; i++) {
-                var arr = value.split(operators[i].op)
+                var arr = value.split(operators[i].op);
                 if (arr.length === 2) {
-                    var prop = normalizeDataAttr(arr[0]);
-                    query[operators[i].fn](prop, arr[1]);
+                    query[operators[i].fn](arr[0], arr[1]);
                     break;
                 }
             }
         })
     }
 
-    if(params.sort) {
-        var sort = params.sort.split(' ').slice(0, 25);
-        var modified_sort = [];
-        sort.forEach(function (value, index, self) {
-            if (value.charAt(0) === "+" || value.charAt(0) === "-") {
-                modified_sort.push(value.charAt(0) + normalizeDataAttr(value.slice(1)));
-            } else {
-                modified_sort.push(normalizeDataAttr(value));
-            }
-        });
-        query.sort(modified_sort.join(' '));
+    if (params.sort) {
+        query.sort(params.sort);
     }
 
     query.exec(function (err, data) {
@@ -177,5 +126,8 @@ module.exports.buildQuery = function (req, res, next) {
 };
 
 module.exports.send = function (req, res, next) {
-    res.send(200, req.pd.data)
-}
+    if (!req.pd || !req.pd.data) {
+        return next(new Error('Cannot find req.pd.data'))
+    }
+    res.send(200, req.pd.data);
+};
