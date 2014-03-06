@@ -101,15 +101,15 @@ ProjectSchema.pre('save', function (next) {
 });
 
 ProjectSchema.methods.matchesOwnerId = function (id) {
-    if (this.relations && this.relations.owner) {
-        return this.relations.owner._id.equals(id);
-    } else {
-        console.log('Relations.owner has not been populated');
-        return false
+    var compare = this.owner._id || this.owner;
+    if (!compare.equals) {
+        return false;
     }
+    return compare.equals(id);
+
 };
 
-ProjectSchema.statics.getRelationKeys = function(){
+ProjectSchema.statics.getRelationKeys = function () {
     return 'owner';
 }
 

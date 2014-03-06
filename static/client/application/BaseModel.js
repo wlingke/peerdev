@@ -127,12 +127,8 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
     };
 
     BaseModel.prototype.getFirstRelationId = function (relation_name) {
-        var relation = this.getFirstRelation(relation_name)
-        if (relation) {
-            return relation.getId();
-        } else {
-            return null;
-        }
+        var relation = this.getFirstRelation(relation_name);
+        return relation.getId ? relation.getId() : relation;
     };
 
     BaseModel.inherit = function (subType) {
