@@ -19,7 +19,6 @@ var UserSchema = new Schema({
                 return validator.isLength(val, 0, 30) && /^[a-z\d]*$/i.test(val);
             }, validateMsg('must be less than length 30 and only contain alphanumerics.')],
             set: function(username){
-                console.log(username);
                 if (typeof username === 'string') {
                     return username.replace('.', '');
                 }
