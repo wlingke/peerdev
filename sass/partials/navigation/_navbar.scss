@@ -74,3 +74,17 @@
     }
   }
 }
+
+.pd-navbar {
+  height: 52px;
+
+  #alerts-container {
+    margin-top: 5px;
+  }
+
+  .rv-alert-universal {
+    padding-top: $spacing-default;
+    padding-bottom: $spacing-default;
+    margin: $spacing-default/2 auto $spacing-default;
+  }
+}

@@ -35,6 +35,12 @@ body {
   margin: 0 auto;
 }
 
+/* line 6, ../../sass/partials/structure/_layout.scss */
+.container-fixed-md {
+  width: 800px;
+  margin: 0 auto;
+}
+
 /* line 1, ../../sass/partials/navigation/_navbar.scss */
 .navbar-white {
   border: 1px solid #c8c8c8;
@@ -116,6 +122,21 @@ body {
   margin-top: -7px;
   top: 50%;
   right: 0;
+}
+
+/* line 78, ../../sass/partials/navigation/_navbar.scss */
+.pd-navbar {
+  height: 52px;
+}
+/* line 81, ../../sass/partials/navigation/_navbar.scss */
+.pd-navbar #alerts-container {
+  margin-top: 5px;
+}
+/* line 85, ../../sass/partials/navigation/_navbar.scss */
+.pd-navbar .rv-alert-universal {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 5px auto 10px;
 }
 
 /* line 1, ../../sass/partials/navigation/_footer.scss */

@@ -30,7 +30,7 @@ RVAlerts.factory("UniversalAlertService", function ($interval) {
             + permanent + '"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>' + msg + '</strong></div>';
 
         var elem = $(elemStr);
-        $('.navbar-fixed-top').after(elem);
+        $('#alerts-container').append(elem);
 
         if(!isNaN(parseFloat(permanent)) && isFinite(permanent)){
             $interval(function(){

@@ -32,7 +32,6 @@ module.exports.getProjectById = function (req, res, next) {
     };
 
     Project.findById(req.params.id)
-//        .populate('owner')
         .exec(callback)
 };
 
