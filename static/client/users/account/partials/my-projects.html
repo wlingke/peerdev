@@ -1,13 +1,19 @@
-<div class="container-fixed-md">
-    <h2 class="text-center">My Projects</h2>
+<div class="container-fixed-sm">
+    <h2 class="text-center page-header">My Projects</h2>
 
-    <div class="panel panel-default" ng-repeat="project in projects">
-        <div class="panel-body">
-            <a ng-href="/edit-project/{{ project.getId() }}" class="btn btn-default pull-right"><i class="fa fa-pencil"></i></a>
-            <h3>{{ project.get('title') }}</h3>
+    <ul class="media-list">
+        <li class="media" ng-repeat="project in projects">
+            <div class="pull-right">
+                <ul class="list-unstyled">
+                    <li><a ng-href="/edit-project/{{project.getId()}}"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
+                    <li><a ng-click="deleteProject(project, $index)"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
+                </ul>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ project.get('title') }}</h4>
 
-            <p>{{ project.get('description') }}</p>
-            <a ng-href="{{ project.get('website') }}" target="_blank">{{ project.get('website') }}</a>
-        </div>
-    </div>
+                <p>Created on: {{ project.getMeta('created_at') | date:'mediumDate' }}</p>
+            </div>
+        </li>
+    </ul>
 </div>

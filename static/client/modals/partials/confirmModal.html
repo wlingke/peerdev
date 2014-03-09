@@ -1,0 +1,20 @@
+<div class="modal-content">
+    <button type="button" class="close pull-top-right" ng-click="$dismiss()">&times;</button>
+    <div class="modal-body">
+        <h3>{{ message }}</h3>
+    </div>
+    <div class="modal-footer">
+        <span ng-switch="!!action">
+            <span ng-switch-when="true">
+                <button type="button" class="btn" ng-class="actionBtnClass" ng-click="action()"
+                        rv-status-btn="confirm_status" btn-text-bind="actionBtnText"></button>
+            </span>
+            <span ng-switch-when="false">
+                <button type="button" class="btn" ng-class="actionBtnClass" ng-click="$close()">
+                    {{ actionBtnText }}
+                </button>
+            </span>
+        </span>
+        <button type="button" class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+    </div>
+</div>

@@ -79,6 +79,10 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
     BaseModel.prototype.getUrl = function () {
         return this.url;
     };
+    BaseModel.prototype.getMeta = function (attr_name) {
+        var meta = this.get('meta');
+        return meta ? meta[attr_name] : null;
+    };
     BaseModel.prototype.save = function (data) {
         if (angular.isDefined(this.getId())) {
             return this.update(data);
@@ -125,6 +129,25 @@ app.factory('BaseModel', function (ModelRelations, $q, $http, $log) {
             });
         return deferred.promise
     };
+
+     BaseModel.prototype.destroy = function(){
+         var self = this;
+         var deferred = $q.defer();
+
+         $http({
+             method: "DELETE",
+             url: this.getUrl() + '/' + this.getId(),
+             data: self.data
+         })
+             .success(function () {
+                 deferred.resolve();
+             })
+             .error(function (err) {
+                 $log.error(err);
+                 deferred.reject(err)
+             });
+         return deferred.promise
+     }
 
     BaseModel.prototype.getFirstRelationId = function (relation_name) {
         var relation = this.getFirstRelation(relation_name);

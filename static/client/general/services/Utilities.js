@@ -12,7 +12,7 @@ app.factory('Utilities', function () {
         if (!!url && angular.isString(url) && str.indexOf('http://') === -1 && str.indexOf('https://') === -1) {
             return "http://" + str.trim();
         }
-        return '';
+        return str;
     };
 
     return {
