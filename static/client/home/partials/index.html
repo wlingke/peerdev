@@ -1,7 +1,41 @@
-Projects List
-<div ng-repeat="project in projects">
-    {{ project.get('title') }} By {{ project.getOwner().get('name') }}
+<div class="container-fixed-md">
+    <h2 class="text-center page-header">Find a Project</h2>
 
+    <div infinite-scroll="lazy.query()" infinite-scroll-disabled="lazy.stopLoading">
+        <div class="panel panel-default" ng-repeat="project in lazy.data">
+            <div class="panel-body">
+                <h3 class="clear-mar-top">{{ project.get('title') }}</h3>
+                <h5>{{ project.getOwner().get('name') }}
+                    <small>@{{ project.getOwner().get('username') }}</small>
+                </h5>
+                <p>Posted: <span am-time-ago="project.getMeta('created_at')"></span></p>
+
+                <div ng-if="project.get('description')">
+                    <pre class="pre-normal">{{ project.get('description') }}</pre>
+                </div>
+                <div ng-if="project.get('why_join')">
+                    <strong>Why join?</strong>
+                    <pre class="pre-normal">{{ project.get('why_join') }}</pre>
+                </div>
+                <div ng-if="project.get('website')">
+                    <strong>Website</strong>
+
+                    <div class="text-crop">
+                        <a ng-href="{{ project.get('website') }}">{{ project.get('website') }}</a>
+                    </div>
+                </div>
+                <ul class="list-unstyled">
+                    <li ng-if="project.get('is_paid')">
+                        <i class="fa fa-dollar fa-fw"></i> This is a paid position.
+                    </li>
+                    <li ng-if="project.hasCityState()">
+                        <i class="fa fa-fw fa-globe"></i> {{ project.getCityState() }}
+                    </li>
+                    <li ng-if="project.get('work_from')">Contributors will collaborate: {{ project.get('work_from') }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 
-        <button type="button" ng-click="loadMore()">Load More</button>

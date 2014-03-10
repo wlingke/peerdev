@@ -31,13 +31,13 @@ body {
 
 /* line 1, ../../sass/partials/structure/_layout.scss */
 .container-fixed-sm {
-  width: 500px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
 /* line 6, ../../sass/partials/structure/_layout.scss */
 .container-fixed-md {
-  width: 800px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -355,6 +355,31 @@ a:hover, a:focus {
 /* line 13, ../../sass/partials/general/_typography.scss */
 .capitalize {
   text-transform: capitalize;
+}
+
+/* line 17, ../../sass/partials/general/_typography.scss */
+.lowercase {
+  text-transform: lowercase;
+}
+
+/* line 21, ../../sass/partials/general/_typography.scss */
+.underline {
+  text-decoration: underline;
+}
+
+/* line 26, ../../sass/partials/general/_typography.scss */
+.pre-normal {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  word-break: normal;
+  word-wrap: normal;
+  white-space: pre-wrap;
 }
 
 /* line 1, ../../sass/partials/general/_callout.scss */

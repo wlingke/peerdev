@@ -56,7 +56,10 @@ app.factory('GeneralCategories', function(Lookup){
     var statesLookup = Lookup.create(states, 'value');
 
     return {
-        states: states
+        states: states,
+        getFullState: function(value, muteLog){
+            return statesLookup.get(value, 'title', muteLog);
+        }
     };
 
 })

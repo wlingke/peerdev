@@ -6,7 +6,8 @@ var app = angular.module('peerdev', [
         'RVInlineValidate',
         'RVStatus',
         'RVAlerts',
-        'infinite-scroll'
+        'infinite-scroll',
+        'angularMoment'
     ])
     .run(function (Initialize, $rootScope, $state, ModelRelations, User) {
         Initialize.getCurrentUser();

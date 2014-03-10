@@ -1,4 +1,4 @@
-app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities, APIQuery) {
+app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities, APIQuery, GeneralCategories) {
     function Project(json) {
         BaseModel.getModel().call(this, json, ['owner'])
         this.url = Project.url;
@@ -25,6 +25,18 @@ app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities, APIQuery)
     Project.prototype.hasCityState = function () {
         return this.data.city && this.data.state;
     };
+
+    Project.prototype.getCityState = function(fullState){
+        var city = this.get('city') || '';
+        var stateAbbr = this.get('state') || '';
+        var state = fullState ? GeneralCategories.getFullState(stateAbbr, true) : stateAbbr;
+
+        if (!city || !state) {
+            return city + state;
+        } else {
+            return city + ", " + state;
+        }
+    }
 
     Project.prototype.getOwner = function(){
         return this.getFirstRelation('owner');

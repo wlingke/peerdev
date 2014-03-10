@@ -13,3 +13,26 @@ a {
 .capitalize {
   text-transform: capitalize;
 }
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+//Pre class for normal text
+.pre-normal{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  word-break: normal;
+  word-wrap: normal;
+  white-space: pre-wrap;
+}
