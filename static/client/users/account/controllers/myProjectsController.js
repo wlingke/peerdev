@@ -3,7 +3,7 @@ app.controller('myProjectsController', function($scope, Project, $rootScope, Con
     Project.find()
         .conditions({owner: $rootScope.current_user.getId()})
         .select('title meta.created_at')
-        .sort('_id')
+        .sort('-_id')
         .exec()
         .then(function(projects){
             $scope.projects = $scope.projects.concat(projects);
@@ -13,7 +13,6 @@ app.controller('myProjectsController', function($scope, Project, $rootScope, Con
         var instance = ConfirmModals.removeProject(model);
         instance.result.then(function(){
             $scope.projects.splice($index, 1);
-        })
-
-    }
+        });
+    };
 });

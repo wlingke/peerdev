@@ -185,8 +185,7 @@ app.factory('APIQuery', function ($http, $q, $log) {
     APIQuery.prototype.exec = function () {
         //build compare & populate strings
         if(angular.isArray(this._compare)){
-            this.params.compare = this._compare.slice(0,10).join('+');
-            this.params.compare.replace('\\s+', '');
+            this.params.compare = this._compare.slice(0,10).join('+').replace(/ /g, '');
         }
         if(angular.isArray(this._populate)){
             this.params.populate = this._populate.slice(0,5).join('+');

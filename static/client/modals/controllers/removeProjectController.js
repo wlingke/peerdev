@@ -4,7 +4,7 @@ app.controller('removeProjectController', function ($scope, StatusService, $moda
     $scope.actionBtnClass = 'btn-danger';
 
     if (typeof $scope.message === 'undefined') {
-        $scope.message = "Are you sure you want to delete this project? This action cannot be reversed.";
+        $scope.message = 'Are you sure you want to delete "'+ $scope.project.get('title') + '"? This action cannot be reversed.';
     }
 
     $scope.action = function () {
