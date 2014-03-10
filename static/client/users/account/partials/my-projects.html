@@ -1,7 +1,7 @@
 <div class="container-fixed-sm">
     <h2 class="text-center page-header">My Projects</h2>
 
-    <ul class="media-list">
+    <ul class="media-list" infinite-scroll="query()" infinite-scroll-disabled="stopLoading">
         <li class="media" ng-repeat="project in projects">
             <div class="pull-right">
                 <ul class="list-unstyled">
