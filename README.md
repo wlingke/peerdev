@@ -24,7 +24,7 @@ Building the App
 
 5. Install SASS & Compass. (You will also need Ruby if it isn't already installed)
     SASS: http://sass-lang.com/install
-    Compass: http://compass-style.org/install/  
+    Compass: http://compass-style.org/install/
 
 6. Install the standalone Selenium Server for Protractor **(TBD - Don't do this yet)**
     ```
@@ -43,6 +43,8 @@ Runs compass to compile SASS, starts Grunt Watch for compiling SASS on file chan
 ```
 $ grunt
 ```
+
+Navigate to **http://localhost:3000**
 
 #####Misc commands:#####
 Only run the development server
