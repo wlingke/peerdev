@@ -24,13 +24,13 @@ Building the App
 
 5. Install SASS & Compass. (You will also need Ruby if it isn't already installed)
     SASS: http://sass-lang.com/install
-    Compass: http://compass-style.org/install/
+    Compass: http://compass-style.org/install/  
 
 6. Install the standalone Selenium Server for Protractor **(TBD - Don't do this yet)**
     ```
     $ node ./node_modules/protractor/bin/webdriver-manager update
     ```
-(Optional) Setting up Webstorm/Pycharm for E2E debugging: https://github.com/angular/protractor/blob/master/docs/debugging.md
+    (Optional) Setting up Webstorm/Pycharm for E2E debugging: https://github.com/angular/protractor/blob/master/docs/debugging.md
 
 Starting the App
 ---------
