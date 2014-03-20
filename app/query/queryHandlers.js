@@ -29,6 +29,7 @@ module.exports.buildQuery = function (req, res, next) {
         return next(new Error('Must initialize query'))
     }
 
+    // Checks that the type is one of the correct types.
     function checkType(type) {
         return type === 'find' || type === 'findById' || type === 'findOne' || type === 'count';
     }
@@ -45,32 +46,32 @@ module.exports.buildQuery = function (req, res, next) {
         }
     }
 
-
+    // Sets the conditions for the query (usually filters)
     var conditions = tryJSONParse(params.conditions);
     query = model[params.type](conditions);
 
-
+    // Sets select
     if (params.select) {
         query.select(params.select);
     }
 
-
-    if (params.limit) {
-        var limit = parseInt(params.limit, 10);
-        if (!_.isNaN(limit)) {
-            query.limit(limit);
-        }
+    //Limit queries to specified or 100 results and limits max queries to 1000.
+    var limit = parseInt(params.limit, 10);
+    if (!_.isNaN(limit) && limit <= 1000) {
+        query.limit(limit);
+    } else {
+        query.limit(100);
     }
 
-    /**
-     * Doesn't allow more than 200 skips
-     */
-    if (params.skip) {
-        var skip = parseInt(params.skip, 10);
-        if (!_.isNaN(skip) && skip <= 200) {
-            query.skip(skip);
-        }
+
+    // Limit skip to 200
+
+    var skip = parseInt(params.skip, 10);
+    if (!_.isNaN(skip) && skip <= 200) {
+        query.skip(skip);
     }
+
+    // Allows for 5 populations of one level. If need deeper population, should write custom query handler.
 
     if (params.populate) {
         //Allows a maximum of 5 populates and only one level deep
@@ -81,6 +82,7 @@ module.exports.buildQuery = function (req, res, next) {
         })
     }
 
+    // Handles basic inequality comparisons.
     if (params.compare) {
         var operators = [
             {
@@ -112,6 +114,7 @@ module.exports.buildQuery = function (req, res, next) {
         })
     }
 
+    // Allows for sorting
     if (params.sort) {
         query.sort(params.sort);
     }
