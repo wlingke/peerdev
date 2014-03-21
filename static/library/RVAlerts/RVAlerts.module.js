@@ -1,4 +1,5 @@
 /**
+ * Version 1.0.0
  * Dependencies: Bootstrap alerts.js
  */
 
@@ -20,8 +21,8 @@ RVAlerts.factory("UniversalAlertService", function ($interval) {
         }
     };
 
-    var createAlert = function (msg, permanent, type) {
-        //permanent takes value of true, false, or number (in ms). Other values default to false.
+    var createAlert = function (msg, permanent, type, wait_time) {
+        //permanent takes value of true
 
         var alert_type = getAlertType(type);
 
@@ -32,10 +33,10 @@ RVAlerts.factory("UniversalAlertService", function ($interval) {
         var elem = $(elemStr);
         $('#alerts-container').append(elem);
 
-        if(!isNaN(parseFloat(permanent)) && isFinite(permanent)){
-            $interval(function(){
+        if (!isNaN(parseFloat(wait_time)) && isFinite(wait_time)) {
+            $interval(function () {
                 elem.remove();
-            }, permanent, 1);
+            }, wait_time, 1);
         }
 
     };
@@ -70,7 +71,7 @@ RVAlerts.factory("UniversalAlertService", function ($interval) {
         }
     };
 
-    var removeAllTempAlerts = function(){
+    var removeAllTempAlerts = function () {
         //slightly more efficient alert removal for applicationController
         var alerts = $('.rv-alert-universal');
         var alertsLength = alerts.length;
@@ -98,26 +99,26 @@ RVAlerts.factory("UniversalAlertService", function ($interval) {
             createAlert(msg, permanent, "success");
         },
 
-        createTransientSuccessAlert: function(msg, delay){
+        createTransientSuccessAlert: function (msg, permanent, delay) {
             removeAllTempAlerts();
 
             var delayTime = 4000;
-            if(!isNaN(parseFloat(delay)) && isFinite(delay)){
+            if (!isNaN(parseFloat(delay)) && isFinite(delay)) {
                 delayTime = delay;
             }
 
-            createAlert(msg, delayTime, "success");
+            createAlert(msg, permanent, "success", delayTime);
         },
 
-        createTransientErrorAlert: function(msg, delay){
+        createTransientErrorAlert: function (msg, permanent, delay) {
             removeAllTempAlerts();
 
             var delayTime = 4000;
-            if(!isNaN(parseFloat(delay)) && isFinite(delay)){
+            if (!isNaN(parseFloat(delay)) && isFinite(delay)) {
                 delayTime = delay;
             }
 
-            createAlert(msg, delayTime, "error");
+            createAlert(msg, permanent, "error", delayTime);
         },
 
         createErrorAlert: function (msg, permanent) {
@@ -125,11 +126,11 @@ RVAlerts.factory("UniversalAlertService", function ($interval) {
             createAlert(msg, permanent, "error");
         },
 
-        createTryAgainErrorAlert: function(msg, permanent){
+        createTryAgainErrorAlert: function (msg, permanent) {
             var m = msg || "Oops! Something went wrong on our end.";
             removeAllTempAlerts();
             var message = m + " Please refresh and try again or " +
-                "<a href='mailto:support@peerdev.com' target='_blank'>email us</a> if you continue to receive this error.";
+                "<a href='mailto:support@renovatd.com' target='_blank'>email us</a> if you continue to receive this error.";
             createAlert(message, permanent, "error");
         },
 
@@ -138,13 +139,13 @@ RVAlerts.factory("UniversalAlertService", function ($interval) {
             createAlert(msg, permanent, "info");
         },
 
-        createWorkingAlert: function(workingMsg){
+        createWorkingAlert: function (workingMsg) {
             var msg = workingMsg || "Working...";
             removeAllTempAlerts();
             createAlert('<i class="fa fa-spinner fa-spin ie8n9-hide fa-fw"></i> ' + msg, false, "info");
         },
 
-        removeAllTempAlerts: function(){
+        removeAllTempAlerts: function () {
             removeAllTempAlerts();
         },
         removeAllAlerts: function (permanent) {

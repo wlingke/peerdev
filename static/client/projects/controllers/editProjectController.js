@@ -1,4 +1,4 @@
-app.controller('editProjectController', function($scope, project, StatusService, GeneralCategories, RVValidate, UniversalAlertService){
+app.controller('editProjectController', function($scope, project, StatusService, GeneralCategories, RVValidate, UniversalAlertService, $state){
     $scope.project = project;
     $scope.hide_add_info_switch = true;
     $scope.hide_add_info = false;
@@ -12,7 +12,8 @@ app.controller('editProjectController', function($scope, project, StatusService,
                 $scope.project.save(undefined, true)
                     .then(function () {
                         $scope.save_status.reset();
-                        UniversalAlertService.createTransientSuccessAlert("Project saved successfully!");
+                        $state.go('my_projects');
+                        UniversalAlertService.createTransientSuccessAlert("Project saved successfully!", true);
                     }, function () {
                         $scope.save_status.reset();
                         UniversalAlertService.createTryAgainErrorAlert();

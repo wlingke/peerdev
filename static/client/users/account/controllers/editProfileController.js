@@ -1,4 +1,4 @@
-app.controller('editProfileController', function ($scope, $rootScope, GeneralCategories, StatusService, RVValidate, UniversalAlertService, Initialize, $q) {
+app.controller('editProfileController', function ($scope, $rootScope, GeneralCategories, StatusService, RVValidate, UniversalAlertService, Initialize, $q, $state) {
     $scope.profile = angular.copy($rootScope.current_user);
     $scope.states = GeneralCategories.states;
     $scope.save_status = StatusService.createSaveStatus();
@@ -23,8 +23,8 @@ app.controller('editProfileController', function ($scope, $rootScope, GeneralCat
                         })
                         .then(function () {
                             $scope.save_status.reset();
-                            UniversalAlertService.createTransientSuccessAlert("Profile saved successfully!");
-                            $scope.profile = angular.copy($rootScope.current_user);
+                            $state.go('my_projects')
+                            UniversalAlertService.createTransientSuccessAlert("Profile saved successfully!", true);
                         });
                 }
             })
