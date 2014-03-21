@@ -1,7 +1,7 @@
 app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('index', {
-            url: '/',
+            url: '/?q',
             templateUrl: '/static/client/home/partials/index.html',
             controller: 'indexController'
         })

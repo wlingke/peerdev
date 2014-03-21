@@ -79,7 +79,18 @@ var ProjectSchema = new Schema({
         created_at: Date
     },
     model_type: String,
-
+    keywords: {
+        type: [
+            {
+                type: String,
+                lowercase: true,
+                trim: true
+            }
+        ],
+        validate: [function (val) {
+            return val.length <= 25;
+        }, validateMsg('can have at most 25 elements')]
+    },
 
     owner: {
         type: Schema.ObjectId,
@@ -97,6 +108,8 @@ ProjectSchema.pre('save', function (next) {
     if (!this.model_type) {
         this.model_type = "project";
     }
+    this.keywords = this.tags;
+
     next();
 });
 
@@ -109,8 +122,5 @@ ProjectSchema.methods.matchesOwnerId = function (id) {
 
 };
 
-ProjectSchema.statics.getRelationKeys = function () {
-    return 'owner';
-}
 
 var model = mongoose.model('Project', ProjectSchema);

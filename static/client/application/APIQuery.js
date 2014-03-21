@@ -182,6 +182,19 @@ app.factory('APIQuery', function ($http, $q, $log) {
         return this;
     };
 
+    /**
+     * Specifies an '$in' query condition
+     * @param path (string)
+     * @param value (array or string)
+     */
+    APIQuery.prototype.$in = function(path, value){
+        if(angular.isString(path)){
+            var val = angular.isArray(value) ? value.join('+') : value;
+            this.params.$in = path + '/' + val;
+        }
+        return this;
+    };
+
     APIQuery.prototype.exec = function () {
         //build compare & populate strings
         if(angular.isArray(this._compare)){

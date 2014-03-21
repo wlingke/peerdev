@@ -115,6 +115,4 @@ UserSchema.pre('save', function (next) {
     next();
 });
 
-UserSchema.static.getRelationKeys = function(){};
-
 var model = mongoose.model('User', UserSchema);

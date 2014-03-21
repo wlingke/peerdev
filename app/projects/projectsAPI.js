@@ -15,5 +15,4 @@ module.exports = function (app) {
     app.post('/api/projects/:id', canModify, projectHandlers.save);
     app.get('/api/projects/:id', projectHandlers.getProjectById, projectHandlers.send);
     app.del('/api/projects/:id', canModify, projectHandlers.del);
-
 };

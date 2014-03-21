@@ -42,12 +42,22 @@ module.exports.buildQuery = function (req, res, next) {
         try {
             return JSON.parse(str)
         } catch (e) {
-            return str
+            return str ? str : {};
         }
     }
 
     // Sets the conditions for the query (usually filters)
     var conditions = tryJSONParse(params.conditions);
+
+    if(params.$in){
+        var $in = params.$in.split('/');
+        var $in_search = $in[1].split('+');
+        conditions[$in[0]] = {
+            $in: $in_search
+        };
+    }
+
+
     query = model[params.type](conditions);
 
     // Sets select

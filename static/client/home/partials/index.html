@@ -1,6 +1,15 @@
 <div class="container-fixed-md">
     <h2 class="text-center page-header">Find a Project</h2>
 
+    <div class="form-group">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter keywords to search" ng-model="data.search_input" ng-keypress="inputEnter($event)">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" ng-click="search()"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </div>
+
     <div infinite-scroll="lazy.query()" infinite-scroll-disabled="lazy.stopLoading">
         <div class="panel panel-default" ng-repeat="project in lazy.data">
             <div class="panel-body">
