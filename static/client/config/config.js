@@ -1,4 +1,4 @@
-app.config(function ($locationProvider, $compileProvider, $uiViewScrollProvider, gravatarServiceProvider) {
+app.config(function ($locationProvider, $compileProvider, $uiViewScrollProvider, gravatarServiceProvider, UniversalAlertServiceProvider) {
 
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
@@ -7,6 +7,7 @@ app.config(function ($locationProvider, $compileProvider, $uiViewScrollProvider,
     gravatarServiceProvider.defaults = {
         size: 100,
         'default': 'mm'
-    }
+    };
+    UniversalAlertServiceProvider.setContainer('#alerts-container');
 
 });
