@@ -15,7 +15,8 @@
     "connect-mongo": "~0.4.0",
     "forever": "~0.10.11",
     "forever-monitor": "~1.2.3",
-    "validator": "~3.4.0"
+    "validator": "~3.4.0",
+    "request": "~2.34.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

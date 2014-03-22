@@ -2,7 +2,11 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    validator = require('validator');
+    validator = require('validator'),
+    AlchemyAPI = require('app/alchemyapi/alchemyapi'),
+    alchemyapi = new AlchemyAPI(),
+    _ = require('lodash'),
+    MAX_KEYS = 30;
 
 var validateMsg = function (append) {
     return "'{PATH}': '{VALUE}' " + append;
@@ -108,9 +112,21 @@ ProjectSchema.pre('save', function (next) {
     if (!this.model_type) {
         this.model_type = "project";
     }
-    this.keywords = this.tags;
+    var keywords = this.tags.slice();
+    var model = this;
 
-    next();
+    //Generates keywords based on title and description
+    alchemyapi.keywords('text', this.title + ' ' + this.description, { keywordExtractMode: 'strict', maxRetrieve: MAX_KEYS}, function(response){
+        if(response.status === "OK"){
+            response.keywords.forEach(function(value){
+                if(value.relevance > .4){
+                    keywords = keywords.concat(value.text.split(/ |-/));
+                }
+            });
+            model.keywords = _.uniq(keywords).slice(0,MAX_KEYS);
+        }
+        next()
+    });
 });
 
 ProjectSchema.methods.matchesOwnerId = function (id) {
