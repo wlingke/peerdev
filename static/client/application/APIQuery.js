@@ -182,15 +182,13 @@ app.factory('APIQuery', function ($http, $q, $log) {
         return this;
     };
 
-    /**
-     * Specifies an '$in' query condition
-     * @param path (string)
-     * @param value (array or string)
-     */
-    APIQuery.prototype.$in = function(path, value){
-        if(angular.isString(path)){
-            var val = angular.isArray(value) ? value.join('+') : value;
-            this.params.$in = path + '/' + val;
+    APIQuery.prototype.search = function(value){
+        if(value){
+            if(angular.isArray(value)){
+                this.params.search = value.join('+');
+            }else if(angular.isString(value)){
+                this.params.search = value.replace(' ', '+');
+            }
         }
         return this;
     };
@@ -237,7 +235,6 @@ app.factory('APIQuery', function ($http, $q, $log) {
 
         return deferred.promise;
     };
-
 
     return {
         init: function(Model, url, query_type){

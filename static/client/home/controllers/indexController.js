@@ -5,14 +5,14 @@ app.controller('indexController', function ($scope, Project, APILazy, $state, $s
             .populate('owner');
 
     if($stateParams.q){
-        var search = $stateParams.q.split(' ');
-        q.$in('keywords', search);
+        var search = $stateParams.q.toLowerCase();
+        q.search(search);
     }
 
     $scope.lazy = APILazy.create(q);
 
     $scope.data = {};
-    $scope.data.search_input = '';
+    $scope.data.search_input = $stateParams.q;
     $scope.search = function(){
         $state.go('index', {q: $scope.data.search_input});
     };

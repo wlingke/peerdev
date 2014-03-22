@@ -7,6 +7,7 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+
 module.exports.init = function (model_type) {
 
     return function (req, res, next) {
@@ -17,16 +18,38 @@ module.exports.init = function (model_type) {
     }
 };
 
-/**
- * Must be run after initialization
- */
+module.exports.buildConditions = function (req, res, next) {
+    var params = req.pd.params;
+
+    if (_.isUndefined(req.pd)) {
+        return next(new Error('Must initialize query'));
+    }
+
+    function tryJSONParse(str) {
+        try {
+            return JSON.parse(str)
+        } catch (e) {
+
+            //Returns string only in the type is findOne
+            return params.type === 'findOne' ? str : {};
+        }
+    }
+
+    // Sets the conditions for the query (usually filters)
+    req.pd.conditions = tryJSONParse(params.conditions);
+    next()
+};
+
+
+
 module.exports.buildQuery = function (req, res, next) {
-    var model = req.pd.model,
-        params = req.pd.params,
+    var params = req.pd.params,
+        model = req.pd.model,
+        conditions = req.pd.conditions || {},
         query;
 
     if (_.isUndefined(req.pd)) {
-        return next(new Error('Must initialize query'))
+        return next(new Error('Must initialize query'));
     }
 
     // Checks that the type is one of the correct types.
@@ -38,27 +61,11 @@ module.exports.buildQuery = function (req, res, next) {
         return next(new Error('Query type:' + params.type + 'is invalid'))
     }
 
-    function tryJSONParse(str) {
-        try {
-            return JSON.parse(str)
-        } catch (e) {
-            return str ? str : {};
-        }
-    }
-
-    // Sets the conditions for the query (usually filters)
-    var conditions = tryJSONParse(params.conditions);
-
-    if(params.$in){
-        var $in = params.$in.split('/');
-        var $in_search = $in[1].split('+');
-        conditions[$in[0]] = {
-            $in: $in_search
-        };
-    }
-
-
     query = model[params.type](conditions);
+
+    if (!model) {
+        return next(new Error('No model is available'))
+    }
 
     // Sets select
     if (params.select) {
@@ -129,13 +136,29 @@ module.exports.buildQuery = function (req, res, next) {
         query.sort(params.sort);
     }
 
-    query.exec(function (err, data) {
+    req.pd.query = query;
+    next();
+};
+
+
+module.exports.exec = function (req, res, next) {
+    if (_.isUndefined(req.pd)) {
+        return next(new Error('Must initialize query'));
+    }
+
+    if (!req.pd.query) {
+        return next(new Error('No query is available in req.pd.query'))
+    }
+
+    req.pd.query.exec(function (err, data) {
+
         if (err) {
             return res.send(404, err);
         }
         req.pd.data = data;
         next();
     });
+
 };
 
 module.exports.send = function (req, res, next) {

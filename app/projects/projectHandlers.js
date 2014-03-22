@@ -71,3 +71,26 @@ module.exports.send = function (req, res, next) {
         res.send(404);
     }
 };
+
+/**
+ * Use along with query handlers.
+ * Expects req.pd.conditions and req.pd.params to be available
+ */
+
+var MAX_TERMS = 10;
+
+module.exports.buildSearchConditions = function (req, res, next) {
+    var params = req.pd.params,
+        conditions = req.pd.conditions || {},
+        search;
+
+    if (params.search) {
+        search = params.search.split('+').slice(0,MAX_TERMS);
+        conditions.keywords = {
+            $in: search
+        }
+    }
+
+    req.pd.conditions = conditions;
+    next();
+};
