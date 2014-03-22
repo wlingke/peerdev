@@ -11,17 +11,14 @@
               ng-maxlength="5000" rv-inline-validate char-left="onFocus" msd-elastic required>
     </textarea>
 </div>
-<div class="checkbox">
-    <label>
-        <input type="checkbox" ng-model="project.data.is_paid"> This is a paid position
-    </label>
-</div>
 
 <div class="form-group">
     <label class="control-label">Website</label>
     <input type="text" class="form-control" ng-model="project.data.website" placeholder="Website or repo URL"
            ng-maxlength="255" rv-inline-validate url-validate>
 </div>
+
+<div pd-tags="project.data.tags"></div>
 
 <div class="form-group" ng-if="!hide_add_info_switch">
     <a rv-link-switch="data.hide_add_info" switch-text="Hide Additional Fields">Show Additional Fields</a>
@@ -36,6 +33,11 @@
                   placeholder="Why should someone join your project and what will they get out of it? If this is a paid position, what is the compensation?"
                   ng-maxlength="2500" rv-inline-validate char-left="onFocus" msd-elastic>
         </textarea>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="project.data.is_paid"> This is a paid position
+        </label>
     </div>
 
     <div class="form-group">
@@ -64,9 +66,6 @@
             <option value="flexible">Flexible</option>
         </select>
     </div>
-
-    <div pd-tags="project.data.tags"></div>
-
     <hr class="divider-dark">
 </div>
 
