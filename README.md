@@ -29,11 +29,24 @@ Building the App
 
 7. Install a MongoDB Database viewer (if you don't have it; MongoVue is a good one)
 
-8. Install the standalone Selenium Server for Protractor **(TBD - Don't do this yet)**
+8. Get your own AlchemyAPI key for free (http://www.alchemyapi.com/). Create a text file named "api_key.txt" in app/alchemyapi and paste the key in there.
+Because the key is meant to be private, you'll use your own key for the moment since this repository is public.
+
+9. Install the standalone Selenium Server for Protractor **(TBD - Don't do this yet)**
     ```
     $ node ./node_modules/protractor/bin/webdriver-manager update
     ```
     (Optional) Setting up Webstorm/Pycharm for E2E debugging: https://github.com/angular/protractor/blob/master/docs/debugging.md
+
+How this App will be Versioned
+------------------------------
+This app will use a MAJOR.MINOR.PATCH versioning scheme. We will aim for the master branch to be 'deployable' at all times.
+MAJOR bumps will usually be the result of drastic changes to various APIs, features, models, or a major rewrite.
+MINOR bumps will be important changes but not a major rewrite.
+PATCH bumps are small changes that fix bugs.
+
+If an "R" is appended to any version, it means you may need to REBUILD your repository. For instance, running `npm install` to
+add a new node module. PATCH bumps will never have an "R". See release notes for more information.
 
 
 Starting the App
