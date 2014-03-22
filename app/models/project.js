@@ -93,7 +93,8 @@ var ProjectSchema = new Schema({
         ],
         validate: [function (val) {
             return val.length <= 25;
-        }, validateMsg('can have at most 25 elements')]
+        }, validateMsg('can have at most 25 elements')],
+        index: true
     },
 
     owner: {
@@ -116,14 +117,14 @@ ProjectSchema.pre('save', function (next) {
     var model = this;
 
     //Generates keywords based on title and description
-    alchemyapi.keywords('text', this.title + ' ' + this.description, { keywordExtractMode: 'strict', maxRetrieve: MAX_KEYS}, function(response){
-        if(response.status === "OK"){
-            response.keywords.forEach(function(value){
-                if(value.relevance > .4){
+    alchemyapi.keywords('text', this.title + ' ' + this.description, { keywordExtractMode: 'strict', maxRetrieve: MAX_KEYS}, function (response) {
+        if (response.status === "OK") {
+            response.keywords.forEach(function (value) {
+                if (value.relevance > .4) {
                     keywords = keywords.concat(value.text.split(/ |-/));
                 }
             });
-            model.keywords = _.uniq(keywords).slice(0,MAX_KEYS);
+            model.keywords = _.uniq(keywords).slice(0, MAX_KEYS);
         }
         next()
     });
@@ -137,6 +138,5 @@ ProjectSchema.methods.matchesOwnerId = function (id) {
     return compare.equals(id);
 
 };
-
 
 var model = mongoose.model('Project', ProjectSchema);
