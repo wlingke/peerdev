@@ -94,3 +94,25 @@ module.exports.buildSearchConditions = function (req, res, next) {
     req.pd.conditions = conditions;
     next();
 };
+
+module.exports.buildNearConditions = function (req,res,next){
+    var params = req.pd.params,
+        conditions = req.pd.conditions || {},
+        location_data;
+
+
+    /**
+     * Accepts qs in the form of:
+     * near = longitude + latitude + maxDistance
+     */
+    if (params.near) {
+        location_data = params.near.split('+');
+        conditions.loc = {
+            $near: [location_data[0], location_data[1]],
+            $maxDistance: location_data[2] * 1.60934 / 111.12
+        }
+    }
+
+    req.pd.conditions = conditions;
+    next();
+}

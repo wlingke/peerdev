@@ -1,9 +1,26 @@
 app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('index', {
-            url: '/?q',
+            url: '/?q&loc',
             templateUrl: '/static/client/home/partials/index.html',
-            controller: 'indexController'
+            controller: 'indexController',
+            resolve: {
+                coordinates: ['$q', '$stateParams', 'GoogleMaps', function ($q, $stateParams, GoogleMaps) {
+                    var deferred = $q.defer();
+                    if ($stateParams.loc){
+
+                        GoogleMaps.geocode({address: $stateParams.loc}).then(function(data){
+                            deferred.resolve(data);
+                        }, function(){
+                            deferred.resolve();
+                        })
+                    }else {
+                        deferred.resolve();
+                    }
+
+                    return deferred.promise;
+                }]
+            }
         })
         .state('create_account', {
             url: '/create-account',
@@ -46,19 +63,19 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'editProjectController',
             templateUrl: '/static/client/projects/partials/edit-project.html',
             resolve: {
-                project: ["$http", "$stateParams", "$q", "$rootScope", "Project", function($http, $stateParams, $q, $rootScope, Project){
+                project: ["$http", "$stateParams", "$q", "$rootScope", "Project", function ($http, $stateParams, $q, $rootScope, Project) {
                     var deferred = $q.defer();
 
                     $http.get('/api/projects/' + $stateParams.id)
-                        .success(function(data){
+                        .success(function (data) {
                             var project = Project.init(data);
-                            if($rootScope.current_user && project.getOwnerId() === $rootScope.current_user.getId()){
+                            if ($rootScope.current_user && project.getOwnerId() === $rootScope.current_user.getId()) {
                                 deferred.resolve(project);
-                            }else {
+                            } else {
                                 deferred.reject({type: 'redirect', state: 'route_error.default'});
                             }
                         })
-                        .error(function(){
+                        .error(function () {
                             deferred.reject({type: 'redirect', state: 'route_error.default'});
                         });
 

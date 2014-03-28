@@ -142,7 +142,7 @@ app.factory('APIQuery', function ($http, $q, $log) {
             $log.error('Value must be a number');
             return this;
         }
-        if(value > 200){
+        if (value > 200) {
             $log.error('Cannot skip more than 200 rows');
             return this;
         }
@@ -154,7 +154,7 @@ app.factory('APIQuery', function ($http, $q, $log) {
      * Accepts string version of mongoose parameters only
      * @param sort
      */
-    APIQuery.prototype.sort = function(sort){
+    APIQuery.prototype.sort = function (sort) {
         if (angular.isString(sort)) {
             this.params.sort = sort;
         }
@@ -182,24 +182,42 @@ app.factory('APIQuery', function ($http, $q, $log) {
         return this;
     };
 
-    APIQuery.prototype.search = function(value){
-        if(value){
-            if(angular.isArray(value)){
+    /**
+     * NOTE: Currently only Project accepts this method. It attempts to match data.keywords based on the value.
+     *
+     * @param value
+     * @returns {APIQuery}
+     */
+    APIQuery.prototype.search = function (value) {
+        if (value) {
+            if (angular.isArray(value)) {
                 this.params.search = value.join('+');
-            }else if(angular.isString(value)){
+            } else if (angular.isString(value)) {
                 this.params.search = value.replace(' ', '+');
             }
         }
         return this;
     };
 
+    /**
+     * NOTE: Currently only Project accepts this method. It searchess off of data.loc
+     *
+     * @param longitude
+     * @param latitude
+     * @param radius_in_miles
+     */
+    APIQuery.prototype.near = function (longitude, latitude, radius_in_miles) {
+        this.params.near = longitude + "+" + latitude + "+" + radius_in_miles;
+        return this;
+    };
+
     APIQuery.prototype.exec = function () {
         //build compare & populate strings
-        if(angular.isArray(this._compare)){
-            this.params.compare = this._compare.slice(0,10).join('+').replace(/ /g, '');
+        if (angular.isArray(this._compare)) {
+            this.params.compare = this._compare.slice(0, 10).join('+').replace(/ /g, '');
         }
-        if(angular.isArray(this._populate)){
-            this.params.populate = this._populate.slice(0,5).join('+');
+        if (angular.isArray(this._populate)) {
+            this.params.populate = this._populate.slice(0, 5).join('+');
         }
         this.params.cb = new Date().getTime();
 
@@ -228,7 +246,7 @@ app.factory('APIQuery', function ($http, $q, $log) {
 
                 return deferred.resolve(new self.Model(data))
             })
-            .error(function(err){
+            .error(function (err) {
                 $log.error(err);
                 return deferred.reject(err);
             });
@@ -237,7 +255,7 @@ app.factory('APIQuery', function ($http, $q, $log) {
     };
 
     return {
-        init: function(Model, url, query_type){
+        init: function (Model, url, query_type) {
             return new APIQuery(Model, url, query_type);
         }
     }

@@ -16,7 +16,7 @@ app.factory('GoogleMaps', function($window, $q, $interval, $log){
                     $log.error('Google Maps has not loaded!')
                     deferred.reject();
                 }
-            })
+            }, 100, 10)
         }
         return deferred.promise;
     };
@@ -34,14 +34,16 @@ app.factory('GoogleMaps', function($window, $q, $interval, $log){
             Geocoder.geocode(geocode_request, function(result, status){
                 if(status === maps.GeocoderStatus.OK ){
                     deferred.resolve({
-                        latitude: result[0].geometry.location.d,
-                        longitude: result[0].geometry.location.e
+                        latitude: result[0].geometry.location.lat(),
+                        longitude: result[0].geometry.location.lng()
                     });
                 }else {
                     $log.error(status);
                     deferred.reject(status);
                 }
             })
+        }, function(){
+            deferred.reject();
         });
 
         return deferred.promise;

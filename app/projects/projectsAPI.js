@@ -9,7 +9,9 @@ module.exports = function (app) {
         projectHandlers.isProjectOwner];
 
     app.post('/api/projects', userHandlers.loggedIn, projectHandlers.create);
-    app.get('/api/projects', queryHandlers.init('Project'), queryHandlers.buildConditions, projectHandlers.buildSearchConditions, queryHandlers.buildQuery, queryHandlers.exec, queryHandlers.send);
+    app.get('/api/projects', queryHandlers.init('Project'), queryHandlers.buildConditions,
+        projectHandlers.buildSearchConditions, projectHandlers.buildNearConditions,
+        queryHandlers.buildQuery, queryHandlers.exec, queryHandlers.send);
 
     app.post('/api/projects/:id', canModify, projectHandlers.save);
     app.get('/api/projects/:id', projectHandlers.getProjectById, projectHandlers.send);

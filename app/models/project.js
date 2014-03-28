@@ -139,4 +139,6 @@ ProjectSchema.methods.matchesOwnerId = function (id) {
 
 };
 
+ProjectSchema.index({'loc': '2d'})
+
 var model = mongoose.model('Project', ProjectSchema);
