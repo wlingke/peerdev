@@ -182,6 +182,12 @@ app.factory('APIQuery', function ($http, $q, $log) {
         return this;
     };
 
+    /**
+     * NOTE: Currently only Project accepts this method. It attempts to match data.keywords based on the value.
+     *
+     * @param value
+     * @returns {APIQuery}
+     */
     APIQuery.prototype.search = function (value) {
         if (value) {
             if (angular.isArray(value)) {
@@ -194,6 +200,7 @@ app.factory('APIQuery', function ($http, $q, $log) {
     };
 
     /**
+     * NOTE: Currently only Project accepts this method. It searchess off of data.loc
      *
      * @param longitude
      * @param latitude
