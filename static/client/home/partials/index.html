@@ -2,11 +2,18 @@
     <h2 class="text-center page-header">Find a Project</h2>
 
     <div class="form-group">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Enter keywords to search" ng-model="data.search_input" ng-keypress="inputEnter($event)">
-            <span class="input-group-btn">
-                <button class="btn btn-primary" ng-click="search()"><i class="fa fa-search"></i></button>
-            </span>
+        <div class="row">
+        <div class="col-lg-6">
+            <input type="text" class="form-control" placeholder="Enter keywords to search" ng-model="data.search_input"
+                   ng-keypress="inputEnter($event)">
+        </div>
+        <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="Location"
+                   ng-model="data.search_location" ng-keypress="inputEnter($event)">
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary btn-block" ng-click="search()"><i class="fa fa-search"></i> Search</button>
+        </div>
         </div>
     </div>
 
