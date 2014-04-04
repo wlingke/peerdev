@@ -2,6 +2,11 @@ app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities, APIQuery,
     function Project(json) {
         BaseModel.getModel().call(this, json, ['owner'])
         this.url = Project.url;
+        if (moment().from(this.getMeta('created_at'), 'days')[0] >= 15) {
+            this.data.active = false;
+        } else {
+            this.data.active = true;
+        } 
     }
 
     BaseModel.inherit(Project);
@@ -45,31 +50,6 @@ app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities, APIQuery,
     Project.prototype.getOwnerId = function(){
         return this.getFirstRelationId('owner');
     };
-
-    Project.prototype.isActive = function(){
-        var createdAt = this.getMeta('created_at');
-        var createdDate = new Date(createdAt);
-        var currentDate = new Date();
-        var millisecondsPerDay = 24 * 60 * 60 * 1000;
-        var differenceOfDays = diffDays(createdDate, currentDate);
-
-        function treatAsUTC(date) {
-            var result = new Date(date);
-            result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
-            return result;
-        }
-
-        function diffDays(startDate, endDate) {
-        return Math.floor(treatAsUTC(endDate) / millisecondsPerDay) 
-               - Math.floor(treatAsUTC(startDate) / millisecondsPerDay);
-        }
-       
-        if(differenceOfDays >= 15) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     Project.prototype.save = function (data, setLocation) {
         var self = this;
