@@ -2,11 +2,7 @@ app.factory('Project', function (BaseModel, GoogleMaps, $q, Utilities, APIQuery,
     function Project(json) {
         BaseModel.getModel().call(this, json, ['owner'])
         this.url = Project.url;
-        if (moment().from(this.getMeta('created_at'), 'days')[0] >= 15) {
-            this.data.active = false;
-        } else {
-            this.data.active = true;
-        } 
+        this.data.active = moment().diff(this.getMeta('created_at'), 'day') < 15;
     }
 
     BaseModel.inherit(Project);
