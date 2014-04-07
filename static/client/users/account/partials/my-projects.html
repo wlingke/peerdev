@@ -2,7 +2,7 @@
     <h2 class="text-center page-header">My Projects</h2>
 
     <ul class="media-list" infinite-scroll="lazy.query()" infinite-scroll-disabled="lazy.stopLoading">
-        <li class="media" ng-repeat="project in lazy.data">
+        <li class="media" ng-repeat="project in lazy.data" ng-class="{{ project.data.active ? 'active' : 'inactive' }}">
             <div class="pull-right">
                 <ul class="list-unstyled">
                     <li><a ng-href="/edit-project/{{project.getId()}}"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
