@@ -65,6 +65,7 @@ var ProjectSchema = new Schema({
     loc: {
         type: [Number], //longitude, latitude
         validate: [function (val) {
+            val = val || [];
             //array is instantiated but is not required so need to allow length = 0 case.
             return val.length === 0 || val.length === 2;
         }, validateMsg('must be an array of length 2')]
@@ -75,6 +76,7 @@ var ProjectSchema = new Schema({
             {type: String, lowercase: true, trim: true}
         ],
         validate: [function (val) {
+            val = val || [];
             return val.length <= 10;
         }, validateMsg('can have at most 10 elements')]
     },
@@ -92,6 +94,7 @@ var ProjectSchema = new Schema({
             }
         ],
         validate: [function (val) {
+            val = val || [];
             return val.length <= 25;
         }, validateMsg('can have at most 25 elements')],
         index: true
