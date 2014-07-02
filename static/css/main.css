@@ -750,3 +750,9 @@ a:hover, a:focus {
 .divider-dark {
   border-top-color: #969696;
 }
+
+/* line 1, ../../sass/partials/users/_my_projects.scss */
+.inactive {
+  background-color: #ededed;
+  padding: 5px;
+}
